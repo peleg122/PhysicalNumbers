@@ -27,7 +27,7 @@ ariel::PhysicalNumber &ariel::operator+=(ariel::PhysicalNumber &a, const ariel::
         }else if(a.unit==2 && b.unit==2){
                  a.setData(a.data+b.data);//"km"+"km"
         }
-    }else if((a.unit<=5)||(a.unit>=3)&&(b.unit<=5||b.unit>=3)){
+    }else if((a.unit<=5||a.unit>=3)&&(b.unit<=5||b.unit>=3)){
         //case 1 : unit a is sec
         if(a.unit==3 && b.unit==3) {
             a.setData(a.data + b.data);//"sec"+"sec"
@@ -48,7 +48,7 @@ ariel::PhysicalNumber &ariel::operator+=(ariel::PhysicalNumber &a, const ariel::
         }else if(a.unit==5 && b.unit==5){
                  a.setData(a.data+b.data);//"hour"+"hour"
         }
-    }else if((a.unit<=8)||(a.unit>=6)&&(b.unit<=8||b.unit>=6)){
+    }else if((a.unit<=8||a.unit>=6)&&(b.unit<=8||b.unit>=6)){
         //case 1 : unit a is gram
         if(a.unit==6 && b.unit==6) {
             a.setData(a.data + b.data);//"gram"+"gram"
