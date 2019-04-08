@@ -1,3 +1,6 @@
+//
+// Created by Peleg on 05/04/2019.
+//
 #pragma once
 #include "Unit.h"
 #include <iostream>
@@ -9,6 +12,7 @@ namespace ariel {
             double data;
             Unit unit;
         public:
+        PhysicalNumber();
             //constructor with initializing list
             PhysicalNumber(double num, Unit type):data(num), unit(type){
                 if(type>=0 && type<=2){
@@ -24,9 +28,6 @@ namespace ariel {
             double GetData(){
                 return this->data;
             }
-           void setData(double num){
-            this->data= num;
-           }
             std::string GetUnit(){
                 int temp = this->unit;
                 switch (temp){
@@ -46,26 +47,18 @@ namespace ariel {
             void SetUnit(Unit un){
                 this->unit = un;
             }
+            void setData(double num){
+                this->data=num;
+            }
 
             //Positive
-            ariel::PhysicalNumber operator+(const ariel::PhysicalNumber& b){
-                double t;
-                Unit u;
-                if(this->unit == b.unit && ((this->unit - b.unit)>=0 ||(this->unit - b.unit)<=2)){
-                    t = this->data + b.data;
-                    u = this->unit;
-                }else if(this->unit> b.unit&& ((this->unit - b.unit)>=0 ||(this->unit - b.unit)<=2)){
 
-
-                }
-                ariel::PhysicalNumber g(t,u);
-                return g;
-            }
+            friend ariel::PhysicalNumber operator+( PhysicalNumber & a,  PhysicalNumber& b);
             friend ariel::PhysicalNumber& operator+=(PhysicalNumber& b,const ariel::PhysicalNumber& a);
 
             //negative
             friend PhysicalNumber operator-(PhysicalNumber& a, PhysicalNumber& b);
-            friend PhysicalNumber operator-=(PhysicalNumber& number, PhysicalNumber& other);
+            friend ariel::PhysicalNumber& operator-=(PhysicalNumber& b,const ariel::PhysicalNumber& a);
             friend PhysicalNumber operator-(PhysicalNumber& a);//not const cuz we do need to change number
 
             //comparison
@@ -83,5 +76,8 @@ namespace ariel {
             //input output
             friend istream& operator>> (istream& in, ariel::PhysicalNumber& a);
             friend ostream& operator<<(ostream& out,const ariel::PhysicalNumber& a);
+
+            //calculation function
+            void Calculation(ariel::PhysicalNumber &a, ariel::PhysicalNumber& b);
     };
 }
