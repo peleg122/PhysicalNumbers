@@ -25,7 +25,7 @@ namespace ariel {
                 return this->data;
             }
            void setData(double num){
-            this.data= num;
+            this->data= num;
            }
             std::string GetUnit(){
                 int temp = this->unit;
