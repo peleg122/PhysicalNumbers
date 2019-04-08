@@ -279,3 +279,22 @@ ariel::PhysicalNumber::PhysicalNumber() {
     this->data=0;
     this->unit=BAD;
 }
+
+ariel::PhysicalNumber &ariel::operator++(ariel::PhysicalNumber &a, int) {
+    a.setData(a.data+1);
+    return a;
+}
+
+ariel::PhysicalNumber &ariel::operator++(ariel::PhysicalNumber &a) {
+    a.setData(a.data+1);
+    return a;
+}
+ariel::PhysicalNumber &ariel::operator--(ariel::PhysicalNumber &a, int) {
+    a.setData(a.data-1);
+    return a;
+}
+
+ariel::PhysicalNumber &ariel::operator--(ariel::PhysicalNumber &a) {
+    a.setData(a.data-1);
+    return a;
+}
