@@ -11,6 +11,7 @@ namespace ariel{
             HOUR=5,
             G=6,
             KG=7,
-            TON=8
+            TON=8,
+            BAD=9
         };
 };
