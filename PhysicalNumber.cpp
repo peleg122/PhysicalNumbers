@@ -1,11 +1,10 @@
 //
 // Created by Peleg on 05/04/2019.
 //
-#pragma
 #include "PhysicalNumber.h"
 using namespace std;
-//Positive
 
+//Positive
 ariel::PhysicalNumber &ariel::operator+=(ariel::PhysicalNumber &a, const ariel::PhysicalNumber &b) {
     if((a.unit<=2 || a.unit>=0)&&(b.unit<=2 || b.unit>=0)){
         //case 1 : unit a is CM
@@ -137,70 +136,3 @@ ostream& ariel::operator<<(ostream &out,const ariel::PhysicalNumber &a) {
     out<< a.data << "[" <<t<<"]";
     return out;
 }
-
-void ariel::PhysicalNumber::Calculation(ariel::PhysicalNumber &a, ariel::PhysicalNumber &b) {
-    switch(a.unit){
-        case 0: switch (b.unit){
-                case 0:
-                    break;
-                case 1:
-                case 2:break;
-        }
-        case 1:switch (b.unit){
-                case 0:
-                    break;
-                case 1:
-                case 2:break;
-            }
-        case 2: switch (b.unit){
-                case 0:
-                    break;
-                case 1:
-                case 2:break;
-            }
-        case 3: switch (b.unit){
-                case 0:
-                    break;
-                case 1:
-                case 2:break;
-            }
-        case 4: switch (b.unit){
-                case 0:
-                    break;
-                case 1:
-                case 2:break;
-            }
-        case 5: switch (b.unit){
-                case 0:
-                    break;
-                case 1:
-                case 2:break;
-            }
-        case 6: switch (b.unit){
-                case 0:
-                    break;
-                case 1:
-                case 2:break;
-            }
-        case 7: switch (b.unit){
-                case 0:
-                    break;
-                case 1:
-                case 2:break;
-            }
-        case 8: switch (b.unit){
-                case 0:
-                    break;
-                case 1:
-                case 2:break;
-            }
-        case 9:break;
-    }
-
-}
-
-
-
-
-//
-
