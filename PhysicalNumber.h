@@ -70,9 +70,11 @@ namespace ariel {
             friend bool operator!= (const PhysicalNumber& a,const PhysicalNumber& b);
 
             //++,--
-            friend PhysicalNumber operator++(PhysicalNumber& a, int); //num++
-            friend PhysicalNumber operator++(PhysicalNumber& a);//++num
+            friend PhysicalNumber& operator++(PhysicalNumber& a, int); //num++
+            friend PhysicalNumber& operator++(PhysicalNumber& a);//++num
 
+            friend PhysicalNumber& operator--(PhysicalNumber& a, int); //num++
+            friend PhysicalNumber& operator--(PhysicalNumber& a);//++num
             //input output
             friend istream& operator>> (istream& in, ariel::PhysicalNumber& a);
             friend ostream& operator<<(ostream& out,const ariel::PhysicalNumber& a);
