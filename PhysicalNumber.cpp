@@ -1,229 +1,269 @@
 //
 // Created by Peleg on 05/04/2019.
 //
+#pragma once
 #include "PhysicalNumber.h"
 using namespace std;
 
 
 //Positive
-ariel::PhysicalNumber ariel::operator+(ariel::PhysicalNumber &a,  ariel::PhysicalNumber & b) {
-    PhysicalNumber h;
-    if((a.unit<=2 || a.unit>=0)&&(b.unit<=2 || b.unit>=0)){
-        //case 1 : unit a is CM
-        if(a.unit==0 && b.unit==0) {
-            h.setData(a.data + b.data);//"cm"+"cm"
-        }else if(a.unit==0 && b.unit==1) {
-            h.setData(a.data + b.data * 100);//"cm"+"m"*100
-        }else if(a.unit==0 && b.unit==2){
-            h.setData(a.data+b.data*100000);//"cm"+"km"*100,000
-        }else if(a.unit==1 && b.unit==0){//case 2 : unit a is Meters
-            h.setData(a.data+b.data/100);//"m"+"cm"/100
-        }else if(a.unit==1 && b.unit==1){
-            h.setData(a.data+b.data);//"m"+"m"
-        }else if(a.unit==1 && b.unit==2){
-            h.setData(a.data+b.data*1000);//"m"+"km"*1000
-        }else if(a.unit==2 && b.unit==0){//case 3: unit a is KM
-            h.setData(a.data+b.data/100000);//"km"+"sm"/100,000
-        }else if(a.unit==2 && b.unit==1){
-            h.setData(a.data+b.data/1000);//"km"+"m"/1000
-        }else if(a.unit==2 && b.unit==2){
-            h.setData(a.data+b.data);//"km"+"km"
-        }
-    }else if((a.unit<=5||a.unit>=3)&&(b.unit<=5||b.unit>=3)){
-        //case 1 : unit a is sec
-        if(a.unit==3 && b.unit==3) {
-            h.setData(a.data + b.data);//"sec"+"sec"
-        }else if(a.unit==3 && b.unit==4) {
-            h.setData(a.data + b.data * 60);//"sec"+"min"*60
-        }else if(a.unit==3 && b.unit==5){
-            h.setData(a.data+b.data*3600);//"sec"+"hour"*3600
-        }else if(a.unit==4 && b.unit==3){//case 2 : unit a is min
-            h.setData(a.data+b.data/60);//"min"+"sec"/60
-        }else if(a.unit==4 && b.unit==4){
-            h.setData(a.data+b.data);//"min"+"min"
-        }else if(a.unit==4 && b.unit==5){
-            h.setData(a.data+b.data*3600);//"min"+"hour"*3600
-        }else if(a.unit==5 && b.unit==3){//case 3: unit a is hour
-            h.setData(a.data+b.data/3600);//"hour"+"sec"/3600
-        }else if(a.unit==5 && b.unit==4){
-            h.setData(a.data+b.data/60);//"hour"+"min"/60
-        }else if(a.unit==5 && b.unit==5){
-            h.setData(a.data+b.data);//"hour"+"hour"
-        }
-    }else if((a.unit<=8||a.unit>=6)&&(b.unit<=8||b.unit>=6)){
-        //case 1 : unit a is gram
-        if(a.unit==6 && b.unit==6) {
-            h.setData(a.data + b.data);//"gram"+"gram"
-        }else if(a.unit==6 && b.unit==7) {
-            h.setData(a.data + b.data * 1000);//"gram"+"kg"*1000
-        }else if(a.unit==6 && b.unit==8){
-            h.setData(a.data+b.data*1000000);//"gram"+"ton"*1,000,000
-        }else if(a.unit==7 && b.unit==6){//case 2 : unit a is kg
-            h.setData(a.data+b.data/1000);//"kg"+"gram"/1000
-        }else if(a.unit==7 && b.unit==7){
-            h.setData(a.data+b.data);//"kg"+"kg"
-        }else if(a.unit==7 && b.unit==8){
-            h.setData(a.data+b.data*1000000);//"kg"+"ton"*1,000,000
-        }else if(a.unit==8 && b.unit==6){//case 3: unit a is ton
-            h.setData(a.data+b.data/1000000);//"ton"+"gram"/1,000,000
-        }else if(a.unit==8 && b.unit==7){
-            h.setData(a.data+b.data/1000);//"ton"+"kg"/1000
-        }else if(a.unit==8 && b.unit==8){
-            h.setData(a.data+b.data);//"ton"+"ton"
-        }
-    }else{
-        throw std::invalid_argument( "received negative value" );
+ariel::PhysicalNumber ariel::operator+(ariel::PhysicalNumber &first,  ariel::PhysicalNumber & second) {
+    PhysicalNumber temp(0, Unit::M);
+    temp.SetUnit(first.unit);
+    if (first.unit == 0 && second.unit == 0) { //case 1 : unit a is CM
+        temp.setData(first.data + second.data);//"cm"+"cm"
+    } else if (first.unit == 0 && second.unit == 1) {
+        temp.setData(first.data + second.data * 100);//"cm"+"m"*100
+    } else if (first.unit == 0 && second.unit == 2) {
+        temp.setData(first.data + second.data * 100000);//"cm"+"km"*100,000
+    } else if (first.unit == 1 && second.unit == 0) {//case 2 : unit a is Meters
+        temp.setData(first.data + second.data / 100);//"m"+"cm"/100
+    } else if (first.unit == 1 && second.unit == 1) {
+        temp.setData(first.data + second.data);//"m"+"m"
+    } else if (first.unit == 1 && second.unit == 2) {
+        temp.setData(first.data + second.data * 1000);//"m"+"km"*1000
+    } else if (first.unit == 2 && second.unit == 0) {//case 3: unit a is KM
+        temp.setData(first.data + second.data / 100000);//"km"+"sm"/100,000
+    } else if (first.unit == 2 && second.unit == 1) {
+        temp.setData(first.data + second.data / 1000);//"km"+"m"/1000
+    } else if (first.unit == 2 && second.unit == 2) {
+        temp.setData(first.data + second.data);//"km"+"km"
+    } else if (first.unit == 3 && second.unit == 3) {//case 1 : unit a is sec
+        temp.setData(first.data + second.data);//"sec"+"sec"
+    } else if (first.unit == 3 && second.unit == 4) {
+        temp.setData(first.data + second.data * 60);//"sec"+"min"*60
+    } else if (first.unit == 3 && second.unit == 5) {
+        temp.setData(first.data + second.data * 3600);//"sec"+"hour"*3600
+    } else if (first.unit == 4 && second.unit == 3) {//case 2 : unit a is min
+        temp.setData(first.data + second.data / 60);//"min"+"sec"/60
+    } else if (first.unit == 4 && second.unit == 4) {
+        temp.setData(first.data + second.data);//"min"+"min"
+    } else if (first.unit == 4 && second.unit == 5) {
+        temp.setData(first.data + second.data * 60);//"min"+"hour"*60
+    } else if (first.unit == 5 && second.unit == 3) {//case 3: unit a is hour
+        temp.setData(first.data + second.data / 3600);//"hour"+"sec"/3600
+    } else if (first.unit == 5 && second.unit == 4) {
+        temp.setData(first.data + second.data / 60);//"hour"+"min"/60
+    } else if (first.unit == 5 && second.unit == 5) {
+        temp.setData(first.data + second.data);//"hour"+"hour"
+    } else if (first.unit == 6 && second.unit == 6) { //case 1 : unit a is gram
+        temp.setData(first.data + second.data);//"gram"+"gram"
+    } else if (first.unit == 6 && second.unit == 7) {
+        temp.setData(first.data + second.data * 1000);//"gram"+"kg"*1000
+    } else if (first.unit == 6 && second.unit == 8) {
+        temp.setData(first.data + second.data / 1000000);//"gram"+"ton"*1,000,000
+    } else if (first.unit == 7 && second.unit == 6) {//case 2 : unit a is kg
+        temp.setData(first.data + second.data / 1000);//"kg"+"gram"/1000
+    } else if (first.unit == 7 && second.unit == 7) {
+        temp.setData(first.data + second.data);//"kg"+"kg"
+    } else if (first.unit == 7 && second.unit == 8) {
+        temp.setData(first.data + second.data * 1000);//"kg"+"ton"*1,000
+    } else if (first.unit == 8 && second.unit == 6) {//case 3: unit a is ton
+        temp.setData(first.data + second.data / 1000000);//"ton"+"gram"/1,000,000
+    } else if (first.unit == 8 && second.unit == 7) {
+        temp.setData(first.data + second.data / 1000);//"ton"+"kg"/1000
+    } else if (first.unit == 8 && second.unit == 8) {
+        temp.setData(first.data + second.data);//"ton"+"ton"
+    } else {
+        cout<<"wrong units"<<endl;
+        throw std::invalid_argument("received wrong Units");
     }
-    h.SetUnit(a.unit);
-    return h;
+    temp.SetUnit(first.unit);
+    return temp;
 }
-ariel::PhysicalNumber &ariel::operator+=(ariel::PhysicalNumber &a, const ariel::PhysicalNumber &b) {
-    if((a.unit<=2 || a.unit>=0)&&(b.unit<=2 || b.unit>=0)){
-        //case 1 : unit a is CM
-        if(a.unit==0 && b.unit==0) {
-            a.setData(a.data + b.data);//"cm"+"cm"
-        }else if(a.unit==0 && b.unit==1) {
-            a.setData(a.data + b.data * 100);//"cm"+"m"*100
-        }else if(a.unit==0 && b.unit==2){
-                 a.setData(a.data+b.data*100000);//"cm"+"km"*100,000
-        }else if(a.unit==1 && b.unit==0){//case 2 : unit a is Meters
-                 a.setData(a.data+b.data/100);//"m"+"cm"/100
-        }else if(a.unit==1 && b.unit==1){
-                 a.setData(a.data+b.data);//"m"+"m"
-        }else if(a.unit==1 && b.unit==2){
-                 a.setData(a.data+b.data*1000);//"m"+"km"*1000
-        }else if(a.unit==2 && b.unit==0){//case 3: unit a is KM
-                 a.setData(a.data+b.data/100000);//"km"+"sm"/100,000
-        }else if(a.unit==2 && b.unit==1){
-                 a.setData(a.data+b.data/1000);//"km"+"m"/1000
-        }else if(a.unit==2 && b.unit==2){
-                 a.setData(a.data+b.data);//"km"+"km"
-        }
-    }else if((a.unit<=5||a.unit>=3)&&(b.unit<=5||b.unit>=3)){
-        //case 1 : unit a is sec
-        if(a.unit==3 && b.unit==3) {
-            a.setData(a.data + b.data);//"sec"+"sec"
-        }else if(a.unit==3 && b.unit==4) {
-            a.setData(a.data + b.data * 60);//"sec"+"min"*60
-        }else if(a.unit==3 && b.unit==5){
-                 a.setData(a.data+b.data*3600);//"sec"+"hour"*3600
-        }else if(a.unit==4 && b.unit==3){//case 2 : unit a is min
-                 a.setData(a.data+b.data/60);//"min"+"sec"/60
-        }else if(a.unit==4 && b.unit==4){
-                 a.setData(a.data+b.data);//"min"+"min"
-        }else if(a.unit==4 && b.unit==5){
-                 a.setData(a.data+b.data*3600);//"min"+"hour"*3600
-        }else if(a.unit==5 && b.unit==3){//case 3: unit a is hour
-                 a.setData(a.data+b.data/3600);//"hour"+"sec"/3600
-        }else if(a.unit==5 && b.unit==4){
-                 a.setData(a.data+b.data/60);//"hour"+"min"/60
-        }else if(a.unit==5 && b.unit==5){
-                 a.setData(a.data+b.data);//"hour"+"hour"
-        }
-    }else if((a.unit<=8||a.unit>=6)&&(b.unit<=8||b.unit>=6)){
-        //case 1 : unit a is gram
-        if(a.unit==6 && b.unit==6) {
-            a.setData(a.data + b.data);//"gram"+"gram"
-        }else if(a.unit==6 && b.unit==7) {
-            a.setData(a.data + b.data * 1000);//"gram"+"kg"*1000
-        }else if(a.unit==6 && b.unit==8){
-                 a.setData(a.data+b.data*1000000);//"gram"+"ton"*1,000,000
-        }else if(a.unit==7 && b.unit==6){//case 2 : unit a is kg
-                 a.setData(a.data+b.data/1000);//"kg"+"gram"/1000
-        }else if(a.unit==7 && b.unit==7){
-                 a.setData(a.data+b.data);//"kg"+"kg"
-        }else if(a.unit==7 && b.unit==8){
-                 a.setData(a.data+b.data*1000000);//"kg"+"ton"*1,000,000
-        }else if(a.unit==8 && b.unit==6){//case 3: unit a is ton
-                 a.setData(a.data+b.data/1000000);//"ton"+"gram"/1,000,000
-        }else if(a.unit==8 && b.unit==7){
-                 a.setData(a.data+b.data/1000);//"ton"+"kg"/1000
-        }else if(a.unit==8 && b.unit==8){
-                 a.setData(a.data+b.data);//"ton"+"ton"
-        }
-    }else{
-        throw invalid_argument("Not a unit in this program");
+
+ariel::PhysicalNumber &ariel::operator+=(ariel::PhysicalNumber &first, const ariel::PhysicalNumber &secnd) {
+    if (first.unit == 0 && secnd.unit == 0) { //case 1 : unit first is CM
+        first.setData(first.data + secnd.data);//"cm"+"cm"
+    } else if (first.unit == 0 && secnd.unit == 1) {
+        first.setData(first.data + secnd.data * 100);//"cm"+"m"*100
+    } else if (first.unit == 0 && secnd.unit == 2) {
+        first.setData(first.data + secnd.data * 100000);//"cm"+"km"*100,000
+    } else if (first.unit == 1 && secnd.unit == 0) {//case 2 : unit first is Meters
+        first.setData(first.data + secnd.data / 100);//"m"+"cm"/100
+    } else if (first.unit == 1 && secnd.unit == 1) {
+        first.setData(first.data + secnd.data);//"m"+"m"
+    } else if (first.unit == 1 && secnd.unit == 2) {
+        first.setData(first.data + secnd.data * 1000);//"m"+"km"*1000
+    } else if (first.unit == 2 && secnd.unit == 0) {//case 3: unit first is KM
+        first.setData(first.data + secnd.data / 100000);//"km"+"sm"/100,000
+    } else if (first.unit == 2 && secnd.unit == 1) {
+        first.setData(first.data + secnd.data / 1000);//"km"+"m"/1000
+    } else if (first.unit == 2 && secnd.unit == 2) {
+        first.setData(first.data + secnd.data);//"km"+"km"
+    } else if (first.unit == 3 && secnd.unit == 3) {//case 1 : unit first is sec
+        first.setData(first.data + secnd.data);//"sec"+"sec"
+    } else if (first.unit == 3 && secnd.unit == 4) {
+        first.setData(first.data + secnd.data * 60);//"sec"+"min"*60
+    } else if (first.unit == 3 && secnd.unit == 5) {
+        first.setData(first.data + secnd.data * 3600);//"sec"+"hour"*3600
+    } else if (first.unit == 4 && secnd.unit == 3) {//case 2 : unit first is min
+        first.setData(first.data + secnd.data / 60);//"min"+"sec"/60
+    } else if (first.unit == 4 && secnd.unit == 4) {
+        first.setData(first.data + secnd.data);//"min"+"min"
+    } else if (first.unit == 4 && secnd.unit == 5) {
+        first.setData(first.data + secnd.data * 60);//"min"+"hour"*60
+    } else if (first.unit == 5 && secnd.unit == 3) {//case 3: unit first is hour
+        first.setData(first.data + secnd.data / 3600);//"hour"+"sec"/3600
+    } else if (first.unit == 5 && secnd.unit == 4) {
+        first.setData(first.data + secnd.data / 60);//"hour"+"min"/60
+    } else if (first.unit == 5 && secnd.unit == 5) {
+        first.setData(first.data + secnd.data);//"hour"+"hour"
+    } else if (first.unit == 6 && secnd.unit == 6) { //case 1 : unit first is gram
+        first.setData(first.data + secnd.data);//"gram"+"gram"
+    } else if (first.unit == 6 && secnd.unit == 7) {
+        first.setData(first.data + secnd.data * 1000);//"gram"+"kg"*1000
+    } else if (first.unit == 6 && secnd.unit == 8) {
+        first.setData(first.data + secnd.data / 1000000);//"gram"+"ton"*1,000,000
+    } else if (first.unit == 7 && secnd.unit == 6) {//case 2 : unit first is kg
+        first.setData(first.data + secnd.data / 1000);//"kg"+"gram"/1000
+    } else if (first.unit == 7 && secnd.unit == 7) {
+        first.setData(first.data + secnd.data);//"kg"+"kg"
+    } else if (first.unit == 7 && secnd.unit == 8) {
+        first.setData(first.data + secnd.data * 1000);//"kg"+"ton"*1,000
+    } else if (first.unit == 8 && secnd.unit == 6) {//case 3: unit first is ton
+        first.setData(first.data + secnd.data / 1000000);//"ton"+"gram"/1,000,000
+    } else if (first.unit == 8 && secnd.unit == 7) {
+        first.setData(first.data + secnd.data / 1000);//"ton"+"kg"/1000
+    } else if (first.unit == 8 && secnd.unit == 8) {
+        first.setData(first.data + secnd.data);//"ton"+"ton"
+    } else {
+        cout<<"wrong units"<<endl;
+        throw std::invalid_argument("received wrong Units");
     }
-    return a;
+    return first;
 }
 
 //negative
-ariel::PhysicalNumber ariel::operator-(PhysicalNumber &a, PhysicalNumber &b) {
-    return PhysicalNumber(0, Unit::M);
-}
-
-ariel::PhysicalNumber &ariel::operator-=(ariel::PhysicalNumber &a, const ariel::PhysicalNumber &b) {
-    if((a.unit<=2 || a.unit>=0)&&(b.unit<=2 || b.unit>=0)){
-        //case 1 : unit a is CM
-        if(a.unit==0 && b.unit==0) {
-            a.setData(a.data - b.data);//"cm"+"cm"
-        }else if(a.unit==0 && b.unit==1) {
-            a.setData(a.data - b.data * 100);//"cm"+"m"*100
-        }else if(a.unit==0 && b.unit==2){
-            a.setData(a.data-b.data*100000);//"cm"+"km"*100,000
-        }else if(a.unit==1 && b.unit==0){//case 2 : unit a is Meters
-            a.setData(a.data-b.data/100);//"m"+"cm"/100
-        }else if(a.unit==1 && b.unit==1){
-            a.setData(a.data-b.data);//"m"+"m"
-        }else if(a.unit==1 && b.unit==2){
-            a.setData(a.data-b.data*1000);//"m"+"km"*1000
-        }else if(a.unit==2 && b.unit==0){//case 3: unit a is KM
-            a.setData(a.data-b.data/100000);//"km"+"sm"/100,000
-        }else if(a.unit==2 && b.unit==1){
-            a.setData(a.data-b.data/1000);//"km"+"m"/1000
-        }else if(a.unit==2 && b.unit==2){
-            a.setData(a.data-b.data);//"km"+"km"
-        }
-    }else if((a.unit<=5||a.unit>=3)&&(b.unit<=5||b.unit>=3)){
-        //case 1 : unit a is sec
-        if(a.unit==3 && b.unit==3) {
-            a.setData(a.data - b.data);//"sec"+"sec"
-        }else if(a.unit==3 && b.unit==4) {
-            a.setData(a.data - b.data * 60);//"sec"+"min"*60
-        }else if(a.unit==3 && b.unit==5){
-            a.setData(a.data-b.data*3600);//"sec"+"hour"*3600
-        }else if(a.unit==4 && b.unit==3){//case 2 : unit a is min
-            a.setData(a.data-b.data/60);//"min"+"sec"/60
-        }else if(a.unit==4 && b.unit==4){
-            a.setData(a.data-b.data);//"min"+"min"
-        }else if(a.unit==4 && b.unit==5){
-            a.setData(a.data-b.data*3600);//"min"+"hour"*3600
-        }else if(a.unit==5 && b.unit==3){//case 3: unit a is hour
-            a.setData(a.data-b.data/3600);//"hour"+"sec"/3600
-        }else if(a.unit==5 && b.unit==4){
-            a.setData(a.data-b.data/60);//"hour"+"min"/60
-        }else if(a.unit==5 && b.unit==5){
-            a.setData(a.data-b.data);//"hour"+"hour"
-        }
-    }else if((a.unit<=8||a.unit>=6)&&(b.unit<=8||b.unit>=6)){
-        //case 1 : unit a is gram
-        if(a.unit==6 && b.unit==6) {
-            a.setData(a.data - b.data);//"gram"+"gram"
-        }else if(a.unit==6 && b.unit==7) {
-            a.setData(a.data - b.data * 1000);//"gram"+"kg"*1000
-        }else if(a.unit==6 && b.unit==8){
-            a.setData(a.data-b.data*1000000);//"gram"+"ton"*1,000,000
-        }else if(a.unit==7 && b.unit==6){//case 2 : unit a is kg
-            a.setData(a.data-b.data/1000);//"kg"+"gram"/1000
-        }else if(a.unit==7 && b.unit==7){
-            a.setData(a.data-b.data);//"kg"+"kg"
-        }else if(a.unit==7 && b.unit==8){
-            a.setData(a.data-b.data*1000000);//"kg"+"ton"*1,000,000
-        }else if(a.unit==8 && b.unit==6){//case 3: unit a is ton
-            a.setData(a.data-b.data/1000000);//"ton"+"gram"/1,000,000
-        }else if(a.unit==8 && b.unit==7){
-            a.setData(a.data-b.data/1000);//"ton"+"kg"/1000
-        }else if(a.unit==8 && b.unit==8){
-            a.setData(a.data-b.data);//"ton"+"ton"
-        }
-    }else{
-        throw invalid_argument("Not a unit in this program");
+ariel::PhysicalNumber ariel::operator-(PhysicalNumber &first, PhysicalNumber &second) {
+    PhysicalNumber temp(0, Unit::M);
+    temp.SetUnit(first.unit);
+    if (first.unit == 0 && second.unit == 0) { //case 1 : unit first is CM
+        temp.setData(first.data - second.data);//"cm"+"cm"
+    } else if (first.unit == 0 && second.unit == 1) {
+        temp.setData(first.data - second.data * 100);//"cm"+"m"*100
+    } else if (first.unit == 0 && second.unit == 2) {
+        temp.setData(first.data - second.data * 100000);//"cm"+"km"*100,000
+    } else if (first.unit == 1 && second.unit == 0) {//case 2 : unit first is Meters
+        temp.setData(first.data - second.data / 100);//"m"+"cm"/100
+    } else if (first.unit == 1 && second.unit == 1) {
+        temp.setData(first.data - second.data);//"m"+"m"
+    } else if (first.unit == 1 && second.unit == 2) {
+        temp.setData(first.data - second.data * 1000);//"m"+"km"*1000
+    } else if (first.unit == 2 && second.unit == 0) {//case 3: unit first is KM
+        temp.setData(first.data - second.data / 100000);//"km"+"sm"/100,000
+    } else if (first.unit == 2 && second.unit == 1) {
+        temp.setData(first.data - second.data / 1000);//"km"+"m"/1000
+    } else if (first.unit == 2 && second.unit == 2) {
+        temp.setData(first.data - second.data);//"km"+"km"
+    } else if (first.unit == 3 && second.unit == 3) {//case 1 : unit first is sec
+        temp.setData(first.data - second.data);//"sec"+"sec"
+    } else if (first.unit == 3 && second.unit == 4) {
+        temp.setData(first.data - second.data * 60);//"sec"+"min"*60
+    } else if (first.unit == 3 && second.unit == 5) {
+        temp.setData(first.data - second.data * 3600);//"sec"+"hour"*3600
+    } else if (first.unit == 4 && second.unit == 3) {//case 2 : unit first is min
+        temp.setData(first.data - second.data / 60);//"min"+"sec"/60
+    } else if (first.unit == 4 && second.unit == 4) {
+        temp.setData(first.data - second.data);//"min"+"min"
+    } else if (first.unit == 4 && second.unit == 5) {
+        temp.setData(first.data - second.data * 60);//"min"+"hour"*60
+    } else if (first.unit == 5 && second.unit == 3) {//case 3: unit first is hour
+        temp.setData(first.data - second.data / 3600);//"hour"+"sec"/3600
+    } else if (first.unit == 5 && second.unit == 4) {
+        temp.setData(first.data - second.data / 60);//"hour"+"min"/60
+    } else if (first.unit == 5 && second.unit == 5) {
+        temp.setData(first.data - second.data);//"hour"+"hour"
+    } else if (first.unit == 6 && second.unit == 6) { //case 1 : unit first is gram
+        temp.setData(first.data - second.data);//"gram"+"gram"
+    } else if (first.unit == 6 && second.unit == 7) {
+        temp.setData(first.data - second.data * 1000);//"gram"+"kg"*1000
+    } else if (first.unit == 6 && second.unit == 8) {
+        temp.setData(first.data - second.data / 1000000);//"gram"+"ton"*1,000,000
+    } else if (first.unit == 7 && second.unit == 6) {//case 2 : unit first is kg
+        temp.setData(first.data - second.data / 1000);//"kg"+"gram"/1000
+    } else if (first.unit == 7 && second.unit == 7) {
+        temp.setData(first.data - second.data);//"kg"+"kg"
+    } else if (first.unit == 7 && second.unit == 8) {
+        temp.setData(first.data - second.data * 1000);//"kg"+"ton"*1,000
+    } else if (first.unit == 8 && second.unit == 6) {//case 3: unit first is ton
+        temp.setData(first.data - second.data / 1000000);//"ton"+"gram"/1,000,000
+    } else if (first.unit == 8 && second.unit == 7) {
+        temp.setData(first.data - second.data / 1000);//"ton"+"kg"/1000
+    } else if (first.unit == 8 && second.unit == 8) {
+        temp.setData(first.data - second.data);//"ton"+"ton"
+    } else {
+        cout<<"wrong units"<<endl;
+        throw std::invalid_argument("received wrong Units");
     }
-    return a;
+    temp.SetUnit(first.unit);
+    return temp;
 }
 
-ariel::PhysicalNumber ariel::operator-(PhysicalNumber &a) {
-    return PhysicalNumber(0, Unit::M);
+ariel::PhysicalNumber &ariel::operator-=(ariel::PhysicalNumber &first, const ariel::PhysicalNumber &second) {
+    if (first.unit == 0 && second.unit == 0) { //case 1 : unit first is CM
+        first.setData(first.data - second.data);//"cm"+"cm"
+    } else if (first.unit == 0 && second.unit == 1) {
+        first.setData(first.data - second.data * 100);//"cm"+"m"*100
+    } else if (first.unit == 0 && second.unit == 2) {
+        first.setData(first.data - second.data * 100000);//"cm"+"km"*100,000
+    } else if (first.unit == 1 && second.unit == 0) {//case 2 : unit first is Meters
+        first.setData(first.data - second.data / 100);//"m"+"cm"/100
+    } else if (first.unit == 1 && second.unit == 1) {
+        first.setData(first.data - second.data);//"m"+"m"
+    } else if (first.unit == 1 && second.unit == 2) {
+        first.setData(first.data - second.data * 1000);//"m"+"km"*1000
+    } else if (first.unit == 2 && second.unit == 0) {//case 3: unit first is KM
+        first.setData(first.data - second.data / 100000);//"km"+"sm"/100,000
+    } else if (first.unit == 2 && second.unit == 1) {
+        first.setData(first.data - second.data / 1000);//"km"+"m"/1000
+    } else if (first.unit == 2 && second.unit == 2) {
+        first.setData(first.data - second.data);//"km"+"km"
+    } else if (first.unit == 3 && second.unit == 3) {//case 1 : unit first is sec
+        first.setData(first.data - second.data);//"sec"+"sec"
+    } else if (first.unit == 3 && second.unit == 4) {
+        first.setData(first.data - second.data * 60);//"sec"+"min"*60
+    } else if (first.unit == 3 && second.unit == 5) {
+        first.setData(first.data - second.data * 3600);//"sec"+"hour"*3600
+    } else if (first.unit == 4 && second.unit == 3) {//case 2 : unit first is min
+        first.setData(first.data - second.data / 60);//"min"+"sec"/60
+    } else if (first.unit == 4 && second.unit == 4) {
+        first.setData(first.data - second.data);//"min"+"min"
+    } else if (first.unit == 4 && second.unit == 5) {
+        first.setData(first.data - second.data * 60);//"min"+"hour"*60
+    } else if (first.unit == 5 && second.unit == 3) {//case 3: unit first is hour
+        first.setData(first.data - second.data / 3600);//"hour"+"sec"/3600
+    } else if (first.unit == 5 && second.unit == 4) {
+        first.setData(first.data - second.data / 60);//"hour"+"min"/60
+    } else if (first.unit == 5 && second.unit == 5) {
+        first.setData(first.data - second.data);//"hour"+"hour"
+    } else if (first.unit == 6 && second.unit == 6) { //case 1 : unit first is gram
+        first.setData(first.data - second.data);//"gram"+"gram"
+    } else if (first.unit == 6 && second.unit == 7) {
+        first.setData(first.data - second.data * 1000);//"gram"+"kg"*1000
+    } else if (first.unit == 6 && second.unit == 8) {
+        first.setData(first.data - second.data / 1000000);//"gram"+"ton"*1,000,000
+    } else if (first.unit == 7 && second.unit == 6) {//case 2 : unit first is kg
+        first.setData(first.data - second.data / 1000);//"kg"+"gram"/1000
+    } else if (first.unit == 7 && second.unit == 7) {
+        first.setData(first.data - second.data);//"kg"+"kg"
+    } else if (first.unit == 7 && second.unit == 8) {
+        first.setData(first.data - second.data * 1000);//"kg"+"ton"*1,000
+    } else if (first.unit == 8 && second.unit == 6) {//case 3: unit first is ton
+        first.setData(first.data - second.data / 1000000);//"ton"+"gram"/1,000,000
+    } else if (first.unit == 8 && second.unit == 7) {
+        first.setData(first.data - second.data / 1000);//"ton"+"kg"/1000
+    } else if (first.unit == 8 && second.unit == 8) {
+        first.setData(first.data - second.data);//"ton"+"ton"
+    } else {
+        cout<<"wrong units"<<endl;
+        throw std::invalid_argument("received wrong Units");
+    }
+    return first;
+}
+
+ariel::PhysicalNumber ariel::operator-( ariel::PhysicalNumber &a) {
+    return PhysicalNumber(-(a.data),a.unit);
 }
 
 //comparison
@@ -252,7 +292,7 @@ bool ariel::operator!=(const PhysicalNumber &a, const PhysicalNumber &b) {
 }
 
 istream& ariel::operator>>(istream &in, ariel::PhysicalNumber &a) {
-    //in>>a.data >> a.unit;
+    in>>a.data ;
     return in;
 }
 
@@ -275,7 +315,7 @@ ostream& ariel::operator<<(ostream &out,const ariel::PhysicalNumber &a) {
     return out;
 }
 
-ariel::PhysicalNumber::PhysicalNumber() {
+ariel::PhysicalNumber::PhysicalNumber() {//default constructor
     this->data=0;
     this->unit=BAD;
 }
@@ -298,3 +338,8 @@ ariel::PhysicalNumber &ariel::operator--(ariel::PhysicalNumber &a) {
     a.setData(a.data-1);
     return a;
 }
+
+ariel::PhysicalNumber ariel::operator+(ariel::PhysicalNumber &a) {//unary plus
+    return a;
+}
+
