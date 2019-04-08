@@ -24,6 +24,9 @@ namespace ariel {
             double GetData(){
                 return this->data;
             }
+           void setData(double num){
+            this.data= num;
+           }
             std::string GetUnit(){
                 int temp = this->unit;
                 switch (temp){
