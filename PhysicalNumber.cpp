@@ -1,11 +1,11 @@
+//
+// Created by Peleg on 05/04/2019.
+//
+
 #pragma once
 #include "PhysicalNumber.h"
 using namespace std;
 
-
-//
-// Created by Peleg on 05/04/2019.
-//
 ariel::PhysicalNumber::PhysicalNumber() {//default constructor
     this->data=0;
     this->unit=BAD;
