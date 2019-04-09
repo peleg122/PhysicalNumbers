@@ -64,6 +64,7 @@ int main() {
                 .CHECK_OK(e.SetUnit(Unit::CM))//might be weird check but ...
                 .CHECK_OUTPUT(e, "2[cm]")
                 .CHECK_THROWS(e+f)//no change made to original
+                //add ++,--,-unary
 
 
 
