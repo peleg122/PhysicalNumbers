@@ -316,8 +316,25 @@ ariel::PhysicalNumber ariel::operator+(ariel::PhysicalNumber &a) {//unary plus
     return a;
 }
 
-istream& ariel::operator>>(istream &in, ariel::PhysicalNumber &a) {
-    in>>a.data ;
+istream& ariel::operator>>(istream& in, ariel::PhysicalNumber &a) {
+    string s;
+    in>>a.data;
+    in>>s;
+    string s2=s.substr(1,s.length()-2);
+    std::cout<<s<<endl;
+    std::cout<<s2<<endl;
+    if(s2=="cm")a.SetUnit(CM);
+    else if(s2=="m")a.SetUnit(M);
+    else if(s2=="km")a.SetUnit(KM);
+    else if(s2=="sec")a.SetUnit(SEC);
+    else if(s2=="min")a.SetUnit(MIN);
+    else if(s2=="hour")a.SetUnit(HOUR);
+    else if(s2=="g")a.SetUnit(G);
+    else if(s2=="kg")a.SetUnit(KG);
+    else if(s2=="ton")a.SetUnit(TON);
+    else{
+        throw invalid_argument("Not a unit in this program");
+    }
     return in;
 }
 
