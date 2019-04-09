@@ -1,92 +1,371 @@
 //
 // Created by Peleg on 05/04/2019.
 //
-#pragma once
-#include "Unit.h"
-#include <iostream>
 
+#include "PhysicalNumber.h"
 using namespace std;
 
-namespace ariel {
-    class PhysicalNumber{
-    private:
-        double data;
-        Unit unit;
-    public:
-        PhysicalNumber();
-        //constructor with initializing list
-        PhysicalNumber(double num, Unit type):data(num), unit(type){
-            if(type>=0 && type<=2){
-                //should be switch cases better code
-            }else if(type>=3 && type<=5){
+ariel::PhysicalNumber::PhysicalNumber() {//default constructor
+    this->data=0;
+    this->unit=BAD;
+}
 
-            }else if(type>=6 && type<=8){
+//Positive
+ariel::PhysicalNumber ariel::PhysicalNumber::operator+(const ariel::PhysicalNumber &second) {
+    PhysicalNumber temp;
+    temp.SetUnit(this->unit);
+    if (this->unit == 0 && second.unit == 0) { //case 1 : unit first is CM
+        temp.setData(this->data + second.data);//"cm"+"cm"
+    } else if (this->unit == 0 && second.unit == 1) {
+        temp.setData(this->data + second.data * 100);//"cm"+"m"*100
+    } else if (this->unit == 0 && second.unit == 2) {
+        temp.setData(this->data + second.data * 100000);//"cm"+"km"*100,000
+    } else if (this->unit == 1 && second.unit == 0) {//case 2 : unit first is Meters
+        temp.setData(this->data + second.data / 100);//"m"+"cm"/100
+    } else if (this->unit == 1 && second.unit == 1) {
+        temp.setData(this->data + second.data);//"m"+"m"
+    } else if (this->unit == 1 && second.unit == 2) {
+        temp.setData(this->data + second.data * 1000);//"m"+"km"*1000
+    } else if (this->unit == 2 && second.unit == 0) {//case 3: unit first is KM
+        temp.setData(this->data + second.data / 100000);//"km"+"sm"/100,000
+    } else if (this->unit == 2 && second.unit == 1) {
+        temp.setData(this->data + second.data / 1000);//"km"+"m"/1000
+    } else if (this->unit == 2 && second.unit == 2) {
+        temp.setData(this->data + second.data);//"km"+"km"
+    } else if (this->unit == 3 && second.unit == 3) {//case 1 : unit first is sec
+        temp.setData(this->data + second.data);//"sec"+"sec"
+    } else if (this->unit == 3 && second.unit == 4) {
+        temp.setData(this->data + second.data * 60);//"sec"+"min"*60
+    } else if (this->unit == 3 && second.unit == 5) {
+        temp.setData(this->data + second.data * 3600);//"sec"+"hour"*3600
+    } else if (this->unit == 4 && second.unit == 3) {//case 2 : unit first is min
+        temp.setData(this->data + second.data / 60);//"min"+"sec"/60
+    } else if (this->unit == 4 && second.unit == 4) {
+        temp.setData(this->data + second.data);//"min"+"min"
+    } else if (this->unit == 4 && second.unit == 5) {
+        temp.setData(this->data + second.data * 60);//"min"+"hour"*60
+    } else if (this->unit == 5 && second.unit == 3) {//case 3: unit first is hour
+        temp.setData(this->data + second.data / 3600);//"hour"+"sec"/3600
+    } else if (this->unit == 5 && second.unit == 4) {
+        temp.setData(this->data + second.data / 60);//"hour"+"min"/60
+    } else if (this->unit == 5 && second.unit == 5) {
+        temp.setData(this->data + second.data);//"hour"+"hour"
+    } else if (this->unit == 6 && second.unit == 6) { //case 1 : unit first is gram
+        temp.setData(this->data + second.data);//"gram"+"gram"
+    } else if (this->unit == 6 && second.unit == 7) {
+        temp.setData(this->data + second.data * 1000);//"gram"+"kg"*1000
+    } else if (this->unit == 6 && second.unit == 8) {
+        temp.setData(this->data + second.data / 1000000);//"gram"+"ton"*1,000,000
+    } else if (this->unit == 7 && second.unit == 6) {//case 2 : unit first is kg
+        temp.setData(this->data + second.data / 1000);//"kg"+"gram"/1000
+    } else if (this->unit == 7 && second.unit == 7) {
+        temp.setData(this->data + second.data);//"kg"+"kg"
+    } else if (this->unit == 7 && second.unit == 8) {
+        temp.setData(this->data + second.data * 1000);//"kg"+"ton"*1,000
+    } else if (this->unit == 8 && second.unit == 6) {//case 3: unit first is ton
+        temp.setData(this->data + second.data / 1000000);//"ton"+"gram"/1,000,000
+    } else if (this->unit == 8 && second.unit == 7) {
+        temp.setData(this->data + second.data / 1000);//"ton"+"kg"/1000
+    } else if (this->unit == 8 && second.unit == 8) {
+        temp.setData(this->data + second.data);//"ton"+"ton"
+    } else {
+        cout<<"wrong units"<<endl; //
+        throw std::invalid_argument("received wrong Units");
+    }
+    return temp;
+}
 
-            }else{
-                throw std::invalid_argument( "received wrong value" );
-            }
-        }
-        int getUnitNum(){
-            return this->unit;
-        }
-        double GetData(){
-            return this->data;
-        }
-        std::string GetUnit(){
-            int temp = this->unit;
-            switch (temp){
-                case 0: return "cm";
-                case 1: return "m";
-                case 2: return "km";
-                case 3: return "sec";
-                case 4: return "min";
-                case 5: return "hour";
-                case 6: return "g";
-                case 7: return "kg";
-                case 8: return "ton";
-                case 9: return "bad";
-            }
-            return "";
-        }
-        void SetUnit(Unit un){
-            this->unit = un;
-        }
-        void setData(double num){
-            this->data=num;
-        }
+ariel::PhysicalNumber &ariel::operator+=(ariel::PhysicalNumber &a, const ariel::PhysicalNumber &b) {
+    if(a.unit==0 && b.unit==0) {
+        a.setData(a.data + b.data);//"cm"+"cm"
+    }else if(a.unit==0 && b.unit==1) {
+        a.setData(a.data + b.data * 100);//"cm"+"m"*100
+    }else if(a.unit==0 && b.unit==2){
+        a.setData(a.data+b.data*100000);//"cm"+"km"*100,000
+    }else if(a.unit==1 && b.unit==0){//case 2 : unit a is Meters
+        a.setData(a.data+b.data/100);//"m"+"cm"/100
+    }else if(a.unit==1 && b.unit==1){
+        a.setData(a.data+b.data);//"m"+"m"
+    }else if(a.unit==1 && b.unit==2){
+        a.setData(a.data+b.data*1000);//"m"+"km"*1000
+    }else if(a.unit==2 && b.unit==0){//case 3: unit a is KM
+        a.setData(a.data+b.data/100000);//"km"+"sm"/100,000
+    }else if(a.unit==2 && b.unit==1){
+        a.setData(a.data+b.data/1000);//"km"+"m"/1000
+    }else if(a.unit==2 && b.unit==2){
+        a.setData(a.data+b.data);//"km"+"km"
+    }
+    else if(a.unit==3 && b.unit==3) {
+        a.setData(a.data + b.data);//"sec"+"sec"
+    }else if(a.unit==3 && b.unit==4) {
+        a.setData(a.data + b.data * 60);//"sec"+"min"*60
+    }else if(a.unit==3 && b.unit==5){
+        a.setData(a.data+b.data*3600);//"sec"+"hour"*3600
+    }else if(a.unit==4 && b.unit==3){//case 2 : unit a is min
+        a.setData(a.data+b.data/60);//"min"+"sec"/60
+    }else if(a.unit==4 && b.unit==4){
+        a.setData(a.data+b.data);//"min"+"min"
+    }else if(a.unit==4 && b.unit==5){
+        a.setData(a.data+b.data*60);//"min"+"hour"*60
+    }else if(a.unit==5 && b.unit==3){//case 3: unit a is hour
+        a.setData(a.data+b.data/3600);//"hour"+"sec"/3600
+    }else if(a.unit==5 && b.unit==4){
+        a.setData(a.data+b.data/60);//"hour"+"min"/60
+    }else if(a.unit==5 && b.unit==5){
+        a.setData(a.data+b.data);//"hour"+"hour"
+    }
+    else if(a.unit==6 && b.unit==6) {
+        a.setData(a.data + b.data);//"gram"+"gram"
+    }else if(a.unit==6 && b.unit==7) {
+        a.setData(a.data + b.data * 1000);//"gram"+"kg"*1000
+    }else if(a.unit==6 && b.unit==8){
+        a.setData(a.data+b.data*1000000);//"gram"+"ton"*1,000,000
+    }else if(a.unit==7 && b.unit==6){//case 2 : unit a is kg
+        a.setData(a.data+b.data/1000);//"kg"+"gram"/1000
+    }else if(a.unit==7 && b.unit==7){
+        a.setData(a.data+b.data);//"kg"+"kg"
+    }else if(a.unit==7 && b.unit==8){
+        a.setData(a.data+b.data*1000);//"kg"+"ton"*1000
+    }else if(a.unit==8 && b.unit==6){//case 3: unit a is ton
+        a.setData(a.data+b.data/1000000);//"ton"+"gram"/1,000,000
+    }else if(a.unit==8 && b.unit==7){
+        a.setData(a.data+b.data/1000);//"ton"+"kg"/1000
+    }else if(a.unit==8 && b.unit==8){
+        a.setData(a.data+b.data);//"ton"+"ton"
+    }
+    else{
+        throw invalid_argument("Not a unit in this program");
+    }
+    return a;
+}
 
-        //Positive
-        PhysicalNumber operator+(const PhysicalNumber& b);//ze shone !! (binary +)
-        friend ariel::PhysicalNumber& operator+=(PhysicalNumber& b,const ariel::PhysicalNumber& a);//works
-        //friend ariel::PhysicalNumber operator+(PhysicalNumber& a);
-        PhysicalNumber operator+()const;
-        //works
+//negative
+ariel::PhysicalNumber ariel::PhysicalNumber::operator-(const ariel::PhysicalNumber &second) {
+    PhysicalNumber temp;
+    temp.SetUnit(this->unit);
+    if (this->unit == 0 && second.unit == 0) { //case 1 : unit first is CM
+        temp.setData(this->data - second.data);//"cm"+"cm"
+    } else if (this->unit == 0 && second.unit == 1) {
+        temp.setData(this->data - second.data * 100);//"cm"+"m"*100
+    } else if (this->unit == 0 && second.unit == 2) {
+        temp.setData(this->data - second.data * 100000);//"cm"+"km"*100,000
+    } else if (this->unit == 1 && second.unit == 0) {//case 2 : unit first is Meters
+        temp.setData(this->data - second.data / 100);//"m"+"cm"/100
+    } else if (this->unit == 1 && second.unit == 1) {
+        temp.setData(this->data - second.data);//"m"+"m"
+    } else if (this->unit == 1 && second.unit == 2) {
+        temp.setData(this->data - second.data * 1000);//"m"+"km"*1000
+    } else if (this->unit == 2 && second.unit == 0) {//case 3: unit first is KM
+        temp.setData(this->data - second.data / 100000);//"km"+"sm"/100,000
+    } else if (this->unit == 2 && second.unit == 1) {
+        temp.setData(this->data - second.data / 1000);//"km"+"m"/1000
+    } else if (this->unit == 2 && second.unit == 2) {
+        temp.setData(this->data - second.data);//"km"+"km"
+    } else if (this->unit == 3 && second.unit == 3) {//case 1 : unit first is sec
+        temp.setData(this->data - second.data);//"sec"+"sec"
+    } else if (this->unit == 3 && second.unit == 4) {
+        temp.setData(this->data - second.data * 60);//"sec"+"min"*60
+    } else if (this->unit == 3 && second.unit == 5) {
+        temp.setData(this->data - second.data * 3600);//"sec"+"hour"*3600
+    } else if (this->unit == 4 && second.unit == 3) {//case 2 : unit first is min
+        temp.setData(this->data - second.data / 60);//"min"+"sec"/60
+    } else if (this->unit == 4 && second.unit == 4) {
+        temp.setData(this->data - second.data);//"min"+"min"
+    } else if (this->unit == 4 && second.unit == 5) {
+        temp.setData(this->data - second.data * 60);//"min"+"hour"*60
+    } else if (this->unit == 5 && second.unit == 3) {//case 3: unit first is hour
+        temp.setData(this->data - second.data / 3600);//"hour"+"sec"/3600
+    } else if (this->unit == 5 && second.unit == 4) {
+        temp.setData(this->data - second.data / 60);//"hour"+"min"/60
+    } else if (this->unit == 5 && second.unit == 5) {
+        temp.setData(this->data - second.data);//"hour"+"hour"
+    } else if (this->unit == 6 && second.unit == 6) { //case 1 : unit first is gram
+        temp.setData(this->data - second.data);//"gram"+"gram"
+    } else if (this->unit == 6 && second.unit == 7) {
+        temp.setData(this->data - second.data * 1000);//"gram"+"kg"*1000
+    } else if (this->unit == 6 && second.unit == 8) {
+        temp.setData(this->data - second.data / 1000000);//"gram"+"ton"*1,000,000
+    } else if (this->unit == 7 && second.unit == 6) {//case 2 : unit first is kg
+        temp.setData(this->data - second.data / 1000);//"kg"+"gram"/1000
+    } else if (this->unit == 7 && second.unit == 7) {
+        temp.setData(this->data - second.data);//"kg"+"kg"
+    } else if (this->unit == 7 && second.unit == 8) {
+        temp.setData(this->data - second.data * 1000);//"kg"+"ton"*1,000
+    } else if (this->unit == 8 && second.unit == 6) {//case 3: unit first is ton
+        temp.setData(this->data - second.data / 1000000);//"ton"+"gram"/1,000,000
+    } else if (this->unit == 8 && second.unit == 7) {
+        temp.setData(this->data - second.data / 1000);//"ton"+"kg"/1000
+    } else if (this->unit == 8 && second.unit == 8) {
+        temp.setData(this->data - second.data);//"ton"+"ton"
+    } else {
+        cout<<"wrong units"<<endl; //
+        throw std::invalid_argument("received wrong Units");
+    }
+    return temp;
+}
 
-        //negative
-        // friend PhysicalNumber operator-(PhysicalNumber& a, PhysicalNumber& b);//works
-        PhysicalNumber operator-(const PhysicalNumber& b);//ze shone !! (binary -)
-        friend ariel::PhysicalNumber& operator-=(PhysicalNumber& b,const ariel::PhysicalNumber& a);//works
-        //friend PhysicalNumber operator-(PhysicalNumber& a);//not const cuz we do need to change number --works
-        PhysicalNumber operator-();
+ariel::PhysicalNumber &ariel::operator-=(ariel::PhysicalNumber &first, const ariel::PhysicalNumber &second) {
+    if (first.unit == 0 && second.unit == 0) { //case 1 : unit first is CM
+        first.setData(first.data - second.data);//"cm"+"cm"
+    } else if (first.unit == 0 && second.unit == 1) {
+        first.setData(first.data - second.data * 100);//"cm"+"m"*100
+    } else if (first.unit == 0 && second.unit == 2) {
+        first.setData(first.data - second.data * 100000);//"cm"+"km"*100,000
+    } else if (first.unit == 1 && second.unit == 0) {//case 2 : unit first is Meters
+        first.setData(first.data - second.data / 100);//"m"+"cm"/100
+    } else if (first.unit == 1 && second.unit == 1) {
+        first.setData(first.data - second.data);//"m"+"m"
+    } else if (first.unit == 1 && second.unit == 2) {
+        first.setData(first.data - second.data * 1000);//"m"+"km"*1000
+    } else if (first.unit == 2 && second.unit == 0) {//case 3: unit first is KM
+        first.setData(first.data - second.data / 100000);//"km"+"sm"/100,000
+    } else if (first.unit == 2 && second.unit == 1) {
+        first.setData(first.data - second.data / 1000);//"km"+"m"/1000
+    } else if (first.unit == 2 && second.unit == 2) {
+        first.setData(first.data - second.data);//"km"+"km"
+    } else if (first.unit == 3 && second.unit == 3) {//case 1 : unit first is sec
+        first.setData(first.data - second.data);//"sec"+"sec"
+    } else if (first.unit == 3 && second.unit == 4) {
+        first.setData(first.data - second.data * 60);//"sec"+"min"*60
+    } else if (first.unit == 3 && second.unit == 5) {
+        first.setData(first.data - second.data * 3600);//"sec"+"hour"*3600
+    } else if (first.unit == 4 && second.unit == 3) {//case 2 : unit first is min
+        first.setData(first.data - second.data / 60);//"min"+"sec"/60
+    } else if (first.unit == 4 && second.unit == 4) {
+        first.setData(first.data - second.data);//"min"+"min"
+    } else if (first.unit == 4 && second.unit == 5) {
+        first.setData(first.data - second.data * 60);//"min"+"hour"*60
+    } else if (first.unit == 5 && second.unit == 3) {//case 3: unit first is hour
+        first.setData(first.data - second.data / 3600);//"hour"+"sec"/3600
+    } else if (first.unit == 5 && second.unit == 4) {
+        first.setData(first.data - second.data / 60);//"hour"+"min"/60
+    } else if (first.unit == 5 && second.unit == 5) {
+        first.setData(first.data - second.data);//"hour"+"hour"
+    } else if (first.unit == 6 && second.unit == 6) { //case 1 : unit first is gram
+        first.setData(first.data - second.data);//"gram"+"gram"
+    } else if (first.unit == 6 && second.unit == 7) {
+        first.setData(first.data - second.data * 1000);//"gram"+"kg"*1000
+    } else if (first.unit == 6 && second.unit == 8) {
+        first.setData(first.data - second.data / 1000000);//"gram"+"ton"*1,000,000
+    } else if (first.unit == 7 && second.unit == 6) {//case 2 : unit first is kg
+        first.setData(first.data - second.data / 1000);//"kg"+"gram"/1000
+    } else if (first.unit == 7 && second.unit == 7) {
+        first.setData(first.data - second.data);//"kg"+"kg"
+    } else if (first.unit == 7 && second.unit == 8) {
+        first.setData(first.data - second.data * 1000);//"kg"+"ton"*1,000
+    } else if (first.unit == 8 && second.unit == 6) {//case 3: unit first is ton
+        first.setData(first.data - second.data / 1000000);//"ton"+"gram"/1,000,000
+    } else if (first.unit == 8 && second.unit == 7) {
+        first.setData(first.data - second.data / 1000);//"ton"+"kg"/1000
+    } else if (first.unit == 8 && second.unit == 8) {
+        first.setData(first.data - second.data);//"ton"+"ton"
+    } else {
+        cout<<"wrong units"<<endl;
+        throw std::invalid_argument("received wrong Units");
+    }
+    return first;
+}
 
-        //comparison
-        friend bool operator== (const PhysicalNumber& a,const PhysicalNumber& b);
-        friend bool operator>= (const PhysicalNumber& a,const PhysicalNumber& b);
-        friend bool operator<= (const PhysicalNumber& a,const PhysicalNumber& b);
-        friend bool operator> (const PhysicalNumber& a,const PhysicalNumber& b);
-        friend bool operator< (const PhysicalNumber& a,const PhysicalNumber& b);
-        friend bool operator!= (const PhysicalNumber& a,const PhysicalNumber& b);
+/*ariel::PhysicalNumber ariel::operator-( ariel::PhysicalNumber &a) {
+    return PhysicalNumber(-(a.data),a.unit);
+}*/
 
-        //++,--
-        friend PhysicalNumber& operator++(PhysicalNumber& a, int); //num++  -works
-        friend PhysicalNumber& operator++(PhysicalNumber& a);//++num -works
+//comparison
+bool ariel::operator==(const PhysicalNumber &a, const PhysicalNumber &b) {
+    return true;
+}
 
-        friend PhysicalNumber& operator--(PhysicalNumber& a, int); //num++ -works
-        friend PhysicalNumber& operator--(PhysicalNumber& a);//++num -works
-        //input output
+bool ariel::operator>=(const PhysicalNumber &a, const PhysicalNumber &b) {
+    return true;
+}
 
-        friend istream&operator>>(istream& in, ariel::PhysicalNumber& a);
-        friend ostream& operator<<(ostream& out,const ariel::PhysicalNumber& a);// -works
+bool ariel::operator <= (const PhysicalNumber &a, const PhysicalNumber &b) {
+    return true;
+}
 
-    };
+bool ariel::operator>(const PhysicalNumber &a, const PhysicalNumber &b) {
+    return true;
+}
+
+bool ariel::operator<(const PhysicalNumber &a, const PhysicalNumber &b) {
+    return true;
+}
+
+bool ariel::operator!=(const PhysicalNumber &a, const PhysicalNumber &b) {
+    return true;
+}
+
+ariel::PhysicalNumber &ariel::operator++(ariel::PhysicalNumber &a, int) {
+    PhysicalNumber temp(a.data, a.unit);
+    a.setData(a.data+1);
+    return temp;
+}
+
+ariel::PhysicalNumber &ariel::operator++(ariel::PhysicalNumber &a) {
+    a.setData(a.data+1);
+    return a;
+}
+
+ariel::PhysicalNumber &ariel::operator--(ariel::PhysicalNumber &a, int) {
+    PhysicalNumber temp(a.data, a.unit);
+    a.setData(a.data-1);
+    return temp;
+}
+ariel::PhysicalNumber &ariel::operator--(ariel::PhysicalNumber &a) {
+    a.setData(a.data-1);
+    return a;
+}
+
+/*ariel::PhysicalNumber ariel::operator+(ariel::PhysicalNumber &a) {//unary plus
+    return a;
+}*/
+
+istream& ariel::operator>>(istream& in, ariel::PhysicalNumber &a) {
+    string s;
+    in>>a.data;
+    in>>s;
+    string s2=s.substr(1,s.length()-2);
+    std::cout<<s<<endl;
+    std::cout<<s2<<endl;
+    if(s2=="cm")a.SetUnit(CM);
+    else if(s2=="m")a.SetUnit(M);
+    else if(s2=="km")a.SetUnit(KM);
+    else if(s2=="sec")a.SetUnit(SEC);
+    else if(s2=="min")a.SetUnit(MIN);
+    else if(s2=="hour")a.SetUnit(HOUR);
+    else if(s2=="g")a.SetUnit(G);
+    else if(s2=="kg")a.SetUnit(KG);
+    else if(s2=="ton")a.SetUnit(TON);
+    else{
+        throw invalid_argument("Not a unit in this program");
+    }
+    return in;
+}
+
+ostream& ariel::operator<<(ostream &out,const ariel::PhysicalNumber &a) {
+    int temp = a.unit;
+    string t ="";
+    switch (temp){
+        case 0: t= "cm";break;
+        case 1: t= "m";break;
+        case 2: t= "km";break;
+        case 3: t= "sec";break;
+        case 4: t= "min";break;
+        case 5: t= "hour";break;
+        case 6: t= "g";break;
+        case 7: t= "kg";break;
+        case 8: t= "ton";break;
+        case 9: t= "bad";break;
+    }
+    out<< a.data << "[" <<t<<"]";
+    return out;
+}
+
+ariel::PhysicalNumber ariel::PhysicalNumber::operator-() {//unary -
+    PhysicalNumber a(-(this->data),this->unit);
+    return a;
+}
+
+ariel::PhysicalNumber ariel::PhysicalNumber::operator+() const{//unary +
+    return *this;
 }
