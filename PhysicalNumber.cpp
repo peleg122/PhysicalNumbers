@@ -2,7 +2,6 @@
 // Created by Peleg on 05/04/2019.
 //
 
-#pragma once
 #include "PhysicalNumber.h"
 using namespace std;
 
