@@ -3,7 +3,7 @@
 //
 #pragma once
 #include "Unit.h"
-#include <iostream>
+
 using namespace std;
 
 namespace ariel {
@@ -55,13 +55,13 @@ namespace ariel {
             }
 
             //Positive
-
-            friend ariel::PhysicalNumber operator+( PhysicalNumber & c,  PhysicalNumber& d);//works
+            PhysicalNumber operator+(const PhysicalNumber& b);//ze shone !! (binary +)
             friend ariel::PhysicalNumber& operator+=(PhysicalNumber& b,const ariel::PhysicalNumber& a);//works
             friend ariel::PhysicalNumber operator+(PhysicalNumber& a);//works
 
             //negative
-            friend PhysicalNumber operator-(PhysicalNumber& a, PhysicalNumber& b);//works
+           // friend PhysicalNumber operator-(PhysicalNumber& a, PhysicalNumber& b);//works
+            PhysicalNumber operator-(const PhysicalNumber& b);//ze shone !! (binary -)
             friend ariel::PhysicalNumber& operator-=(PhysicalNumber& b,const ariel::PhysicalNumber& a);//works
             friend PhysicalNumber operator-(PhysicalNumber& a);//not const cuz we do need to change number --works
 
@@ -80,7 +80,8 @@ namespace ariel {
             friend PhysicalNumber& operator--(PhysicalNumber& a, int); //num++ -works
             friend PhysicalNumber& operator--(PhysicalNumber& a);//++num -works
             //input output
-            friend istream& operator>> (istream& in, ariel::PhysicalNumber& a);//needs fixing
+
+            friend istream&operator>>(istream& in, ariel::PhysicalNumber& a);
             friend ostream& operator<<(ostream& out,const ariel::PhysicalNumber& a);// -works
 
     };
