@@ -61,8 +61,33 @@ int main() {
                 .CHECK_OUTPUT(e-e-f, "-0.5[ton]")
                 .CHECK_OUTPUT(e, "2[ton]")
                 .CHECK_OUTPUT(e+e+e+e+e+e+e, "14[ton]")
-                //add ++,--,-unary
-
+                .CHECK_EQUAL(+PhysicalNumber(0,Unit::MIN),PhysicalNumber(0,Unit::MIN)) //+0[cm] = 0[cm]
+                .CHECK_EQUAL(e > f , true)
+                .CHECK_EQUAL(e==e, true)
+                .CHECK_EQUAL(f<e , true)
+                .CHECK_EQUAL(e==f, false)
+                .CHECK_OUTPUT(e+f+e+f+e+f+e+f, "10[ton]")
+                .CHECK_EQUAL(e>=f, true)
+                .CHECK_EQUAL(e<=f, false)
+                .CHECK_THROWS(e>c)
+                .CHECK_THROWS(e+=d)
+                .CHECK_THROWS(f<d)
+                .CHECK_THROWS(f+a)
+                .CHECK_THROWS(e-=d)
+                .CHECK_THROWS(f<=d)
+                .CHECK_THROWS(f>=a)
+                .CHECK_THROWS(a-c)
+                .CHECK_THROWS(f-=d)
+                .CHECK_THROWS(e==d)
+                .CHECK_OK(c.setData(0))
+                .CHECK_THROWS(--c)
+                .CHECK_THROWS(c-d)
+                .CHECK_OK(c.setData(2))
+                .CHECK_OUTPUT(c,"2[hour]")
+                .CHECK_OUTPUT(c--,"2[hour]")
+                .CHECK_OUTPUT(--c,"0[hour]")
+                .CHECK_OUTPUT(c++,"0[hour]")
+                .CHECK_OUTPUT(++c,"2[hour]")
 
 
                         // YOUR TESTS - INSERT AS MANY AS YOU WANT
