@@ -61,9 +61,6 @@ int main() {
                 .CHECK_OUTPUT(e-e-f, "-0.5[ton]")
                 .CHECK_OUTPUT(e, "2[ton]")
                 .CHECK_OUTPUT(e+e+e+e+e+e+e, "14[ton]")
-                .CHECK_OK(e.SetUnit(Unit::CM))//might be weird check but ...
-                .CHECK_OUTPUT(e, "2[cm]")
-                .CHECK_THROWS(e+f)//no change made to original
                 //add ++,--,-unary
 
 
