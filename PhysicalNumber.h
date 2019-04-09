@@ -58,15 +58,15 @@ namespace ariel {
         //Positive
         PhysicalNumber operator+(const PhysicalNumber& b);//ze shone !! (binary +)
         friend ariel::PhysicalNumber& operator+=(PhysicalNumber& b,const ariel::PhysicalNumber& a);//works
-        friend ariel::PhysicalNumber operator+(PhysicalNumber& a);
-        PhysicalNumber operator+();
+        //friend ariel::PhysicalNumber operator+(PhysicalNumber& a);
+        PhysicalNumber operator+()const;
         //works
 
         //negative
         // friend PhysicalNumber operator-(PhysicalNumber& a, PhysicalNumber& b);//works
         PhysicalNumber operator-(const PhysicalNumber& b);//ze shone !! (binary -)
         friend ariel::PhysicalNumber& operator-=(PhysicalNumber& b,const ariel::PhysicalNumber& a);//works
-        friend PhysicalNumber operator-(PhysicalNumber& a);//not const cuz we do need to change number --works
+        //friend PhysicalNumber operator-(PhysicalNumber& a);//not const cuz we do need to change number --works
         PhysicalNumber operator-();
 
         //comparison
