@@ -356,3 +356,12 @@ ostream& ariel::operator<<(ostream &out,const ariel::PhysicalNumber &a) {
     out<< a.data << "[" <<t<<"]";
     return out;
 }
+
+ariel::PhysicalNumber ariel::PhysicalNumber::operator-() {//unary -
+    PhysicalNumber a(-(this->data),this->unit);
+    return a;
+}
+
+ariel::PhysicalNumber ariel::PhysicalNumber::operator+() {//unary +
+    return *this;
+}
