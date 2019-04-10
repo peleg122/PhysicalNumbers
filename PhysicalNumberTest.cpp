@@ -95,6 +95,7 @@ int main() {
                 .CHECK_EQUAL(c>=d, true)
                 .CHECK_EQUAL(d>=c , false)
                 .CHECK_EQUAL(c==d, false)
+                .CHECK_EQUAL(c!=d, true)
                 .CHECK_EQUAL(g<b, true)
                 .CHECK_EQUAL(b<g, false)
 
