@@ -25,6 +25,7 @@ int main() {
         PhysicalNumber d(30, Unit::MIN);
         PhysicalNumber e(2, Unit::TON);
         PhysicalNumber f(500, Unit::KG);
+        PhysicalNumber g(3, Unit::KM);
 
         testcase
                 .setname("Basic output")
@@ -72,7 +73,7 @@ int main() {
                 .CHECK_THROWS(e>c)
                 .CHECK_THROWS(e+=d)
                 .CHECK_THROWS(f<d)
-                .CHECK_THROWS(f+a)
+                .CHECK_THROWS(f+b)
                 .CHECK_THROWS(e-=d)
                 .CHECK_THROWS(f<=d)
                 .CHECK_THROWS(f>=a)
@@ -88,7 +89,14 @@ int main() {
                 .CHECK_OUTPUT(--c,"0[hour]")
                 .CHECK_OUTPUT(c++,"0[hour]")
                 .CHECK_OUTPUT(++c,"2[hour]")
-
+                .CHECK_THROWS(f==a)
+                .CHECK_EQUAL(a==a, true)
+                .CHECK_EQUAL(a!=a ,false)
+                .CHECK_EQUAL(c>=d, true)
+                .CHECK_EQUAL(d>=c , false)
+                .CHECK_EQUAL(c==d, false)
+                .CHECK_EQUAL(g<b, true)
+                .CHECK_EQUAL(b<g, false)
 
                         // YOUR TESTS - INSERT AS MANY AS YOU WANT
 
