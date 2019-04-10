@@ -361,14 +361,14 @@ bool ariel::operator==(const PhysicalNumber &a, const PhysicalNumber &b) {
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////
-bool ariel::operator!=(const PhysicalNumber &a, const PhysicalNumber &b){
+bool ariel::operator!=(const PhysicalNumber &a, const PhysicalNumber &b) {
     PhysicalNumber temp;
     temp.SetUnit(a.unit);
     if((a.data>=0 && b.data>=0)&&(a.unit>=0||a.unit<=2)&&(b.unit>=0||b.unit<=2)||
        (a.data>=0 && b.data>=0)&&(a.unit>=3||a.unit<=5)&&(b.unit>=3||b.unit<=5)||
        (a.data>=0 && b.data>=0)&&(a.unit>=6||a.unit<=8)&&(b.unit>=6||b.unit<=8)){
-        if((a.unit>=0 || a.unit<=2) && (b.unit>=0 || b.unit<=2)){
-            if(a.unit < b.unit){
+        if((a.unit>=0 && a.unit<=2) && (b.unit>=0 && b.unit<=2)){
+            if(a.unit != b.unit){
                 switch (a.unit){
                     case 0:switch (b.unit){
                             case 1:temp.setData(b.data *100);
@@ -394,8 +394,8 @@ bool ariel::operator!=(const PhysicalNumber &a, const PhysicalNumber &b){
             }else{
                 return false;
             }
-        }else if((a.unit>=3 || a.unit<=5) && (b.unit>=3 || b.unit<=5)){
-            if(a.unit < b.unit){
+        }else if((a.unit>=3 && a.unit<=5) && (b.unit>=3 && b.unit<=5)){
+            if(a.unit != b.unit){
                 switch (a.unit){
                     case 3:switch (b.unit){
                             case 4:temp.setData(b.data *60);
@@ -421,8 +421,8 @@ bool ariel::operator!=(const PhysicalNumber &a, const PhysicalNumber &b){
             }else{
                 return false;
             }
-        }else if((a.unit>=6 || a.unit<=8)  && (b.unit>=6 || b.unit<=8)){
-            if(a.unit < b.unit){
+        }else if((a.unit>=6 && a.unit<=8)  && (b.unit>=6 && b.unit<=8)){
+            if(a.unit != b.unit){
                 switch (a.unit){
                     case 3:switch (b.unit){
                             case 4:temp.setData(b.data *1000);
@@ -453,8 +453,7 @@ bool ariel::operator!=(const PhysicalNumber &a, const PhysicalNumber &b){
     }else{
         throw invalid_argument("illegal data inserted");
     }
-}
-////////////////////////////////////////////////////////////////////////////////////////////
+}////////////////////////////////////////////////////////////////////////////////////////////
 
 bool ariel::operator>=(const PhysicalNumber &a,const PhysicalNumber &b) {
     return !(a < b);
