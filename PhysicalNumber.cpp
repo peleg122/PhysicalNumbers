@@ -460,15 +460,93 @@ bool ariel::operator<(const PhysicalNumber &a,const PhysicalNumber &b) {
 }
 
 
-bool ariel::operator!=(const PhysicalNumber &a,const  PhysicalNumber &b){
-    if(a.unit>=0 || a.unit<=2 && b.unit>=0 || b.unit<=2){
-        return !(a==b);
-    }else if(a.unit>=3 || a.unit<=5 && b.unit>=3 || b.unit<=5){
-        return !(a==b);
-    }else if(a.unit>=6 || a.unit<=8 && b.unit>=6 || b.unit<=8){
-        return !(a==b);
+bool ariel::operator<(const PhysicalNumber &a,const PhysicalNumber &b) {
+    PhysicalNumber temp;
+    temp.SetUnit(a.unit);
+    if(a.data>=0 && b.data>=0){
+        if((a.unit>=0 || a.unit<=2) && (b.unit>=0 || b.unit<=2)){
+            if(a.unit < b.unit){
+                switch (a.unit){
+                    case 0:switch (b.unit){
+                            case 1:temp.setData(b.data *100);
+                            case 2:temp.setData(b.data * 100000);
+                        }
+                    case 1:switch (b.unit){
+                            case 0:temp.setData(b.data /100);
+                            case 2:temp.setData(b.data /100000);
+
+                        }
+                    case 2:switch (b.unit){
+                            case 0:temp.setData(b.data *100000);
+                            case 1:temp.setData(b.data *1000);
+                        }
+                }
+                if(a.data<temp.data){
+                    return true;
+                }else{
+                    return false;
+                }
+            } else if(a.unit==b.unit && a.data<b.data){
+                return true;
+            }else{
+                return false;
+            }
+        }else if((a.unit>=3 || a.unit<=5) && (b.unit>=3 || b.unit<=5)){
+            if(a.unit < b.unit){
+                switch (a.unit){
+                    case 3:switch (b.unit){
+                            case 4:temp.setData(b.data *60);
+                            case 5:temp.setData(b.data * 3600);
+                        }
+                    case 4:switch (b.unit){
+                            case 3:temp.setData(b.data /60);
+                            case 5:temp.setData(b.data *60);
+
+                        }
+                    case 5:switch (b.unit){
+                            case 3:temp.setData(b.data /3600);
+                            case 4:temp.setData(b.data /60);
+                        }
+                }
+                if(a.data<temp.data){
+                    return true;
+                }else{
+                    return false;
+                }
+            } else if(a.unit==b.unit && a.data<b.data){
+                return true;
+            }else{
+                return false;
+            }
+        }else if((a.unit>=6 || a.unit<=8)  && (b.unit>=6 || b.unit<=8)){
+            if(a.unit < b.unit){
+                switch (a.unit){
+                    case 3:switch (b.unit){
+                            case 4:temp.setData(b.data *1000);
+                            case 5:temp.setData(b.data * 1000000);
+                        }
+                    case 4:switch (b.unit){
+                            case 3:temp.setData(b.data /1000);
+                            case 5:temp.setData(b.data *1000);
+                        }
+                    case 5:switch (b.unit){
+                            case 3:temp.setData(b.data /1000000);
+                            case 4:temp.setData(b.data /1000);
+                        }
+                }
+                if(a.data<temp.data){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else if(a.unit==b.unit && a.data<b.data){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }else{
-        throw invalid_argument("No data good");
+        throw invalid_argument("bad data");
     }
 }
 
