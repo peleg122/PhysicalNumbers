@@ -266,36 +266,195 @@ ariel::PhysicalNumber &ariel::operator-=(ariel::PhysicalNumber &first, const ari
     return first;
 }
 
-/*ariel::PhysicalNumber ariel::operator-( ariel::PhysicalNumber &a) {
-    return PhysicalNumber(-(a.data),a.unit);
-}*/
-
 //comparison
 bool ariel::operator==(const PhysicalNumber &a, const PhysicalNumber &b) {
-    return true;
+    PhysicalNumber temp;
+    temp.SetUnit(a.unit);
+    if(a.unit>=0 && a.unit<=2 && b.unit>=0 && b.unit<=2){
+        if(a.unit < b.unit){
+            switch (a.unit){
+                case 0:switch (b.unit){
+                        case 1:temp.setData(b.data *100);
+                        case 2:temp.setData(b.data * 100000);
+                    }
+                case 1:switch (b.unit){
+                        case 0:temp.setData(b.data /100);
+                        case 2:temp.setData(b.data /100000);
+
+                    }
+                case 2:switch (b.unit){
+                        case 0:temp.setData(b.data *100000);
+                        case 1:temp.setData(b.data *1000);
+                    }
+            }
+            if(a.data==temp.data){
+                return true;
+            }else{
+                return false;
+            }
+        } else if(a.unit==b.unit && a.data<b.data){
+            return true;
+        }else{
+            return false;
+        }
+    }else if(a.unit>=3 && a.unit<=5 && b.unit>=3 && b.unit<=5){
+        if(a.unit < b.unit){
+            switch (a.unit){
+                case 3:switch (b.unit){
+                        case 4:temp.setData(b.data *60);
+                        case 5:temp.setData(b.data * 3600);
+                    }
+                case 4:switch (b.unit){
+                        case 3:temp.setData(b.data /60);
+                        case 5:temp.setData(b.data *60);
+
+                    }
+                case 5:switch (b.unit){
+                        case 3:temp.setData(b.data /3600);
+                        case 4:temp.setData(b.data /60);
+                    }
+            }
+            if(a.data==temp.data){
+                return true;
+            }else{
+                return false;
+            }
+        } else if(a.unit==b.unit && a.data==b.data){
+            return true;
+        }else{
+            return false;
+        }
+    }else if(a.unit>=6 && a.unit<=8  && b.unit>=6 && b.unit<=8){
+        if(a.unit < b.unit){
+            switch (a.unit){
+                case 3:switch (b.unit){
+                        case 4:temp.setData(b.data *1000);
+                        case 5:temp.setData(b.data * 1000000);
+                    }
+                case 4:switch (b.unit){
+                        case 3:temp.setData(b.data /1000);
+                        case 5:temp.setData(b.data *1000);
+                    }
+                case 5:switch (b.unit){
+                        case 3:temp.setData(b.data /1000000);
+                        case 4:temp.setData(b.data /1000);
+                    }
+            }
+            if(a.data==temp.data){
+                return true;
+            }else{
+                return false;
+            }
+        }else if(a.unit==b.unit && a.data==b.data){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 
-bool ariel::operator>=(const PhysicalNumber &a, const PhysicalNumber &b) {
-    return true;
+bool ariel::operator>=(const PhysicalNumber &a,const PhysicalNumber &b) {
+    return (b<a || a==b);
 }
 
-bool ariel::operator <= (const PhysicalNumber &a, const PhysicalNumber &b) {
-    return true;
+bool ariel::operator <= (const  PhysicalNumber &a,const PhysicalNumber &b) {
+    return (a < b || a == b);
 }
 
-bool ariel::operator>(const PhysicalNumber &a, const PhysicalNumber &b) {
-    return true;
+bool ariel::operator>(const  PhysicalNumber &a,const  PhysicalNumber &b) {
+    return !(a<=b);
 }
 
-bool ariel::operator<(const PhysicalNumber &a, const PhysicalNumber &b) {
-    return true;
+bool ariel::operator<(const PhysicalNumber &a,const PhysicalNumber &b) {
+    PhysicalNumber temp;
+    temp.SetUnit(a.unit);
+    if(a.unit>=0 && a.unit<=2 && b.unit>=0 && b.unit<=2){
+        if(a.unit < b.unit){
+            switch (a.unit){
+                case 0:switch (b.unit){
+                    case 1:temp.setData(b.data *100);
+                    case 2:temp.setData(b.data * 100000);
+                }
+                case 1:switch (b.unit){
+                        case 0:temp.setData(b.data /100);
+                        case 2:temp.setData(b.data /100000);
+
+                }
+                case 2:switch (b.unit){
+                        case 0:temp.setData(b.data *100000);
+                        case 1:temp.setData(b.data *1000);
+                }
+            }
+            if(a.data<temp.data) {
+                return true;
+            }
+        } else if(a.unit==b.unit && a.data<b.data){
+            return true;
+        }else{
+            return false;
+        }
+    }else if(a.unit>=3 && a.unit<=5 && b.unit>=3 && b.unit<=5){
+        if(a.unit < b.unit){
+            switch (a.unit){
+                case 3:switch (b.unit){
+                        case 4:temp.setData(b.data *60);
+                        case 5:temp.setData(b.data * 3600);
+                    }
+                case 4:switch (b.unit){
+                        case 3:temp.setData(b.data /60);
+                        case 5:temp.setData(b.data *60);
+
+                    }
+                case 5:switch (b.unit){
+                        case 3:temp.setData(b.data /3600);
+                        case 4:temp.setData(b.data /60);
+                    }
+            }
+            if(a.data<temp.data){
+                return true;
+            }else{
+                return false;
+            }
+        } else if(a.unit==b.unit && a.data<b.data){
+            return true;
+        }else{
+            return false;
+        }
+    }else if(a.unit>=6 && a.unit<=8  && b.unit>=6 && b.unit<=8){
+        if(a.unit < b.unit){
+            switch (a.unit){
+                case 3:switch (b.unit){
+                        case 4:temp.setData(b.data *1000);
+                        case 5:temp.setData(b.data * 1000000);
+                    }
+                case 4:switch (b.unit){
+                        case 3:temp.setData(b.data /1000);
+                        case 5:temp.setData(b.data *1000);
+
+                    }
+                case 5:switch (b.unit){
+                        case 3:temp.setData(b.data /1000000);
+                        case 4:temp.setData(b.data /1000);
+                    }
+            }
+            if(a.data<temp.data){
+                return true;
+            }else{
+                return false;
+            }
+        } else if(a.unit==b.unit && a.data<b.data){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 
-bool ariel::operator!=(const PhysicalNumber &a, const PhysicalNumber &b) {
-    return true;
+bool ariel::operator!=(const PhysicalNumber &a,const  PhysicalNumber &b){
+    return !(a==b);
 }
 
-ariel::PhysicalNumber &ariel::operator++(ariel::PhysicalNumber &a, int) {
+ariel::PhysicalNumber ariel::operator++(ariel::PhysicalNumber &a, int) {
     PhysicalNumber temp(a.data, a.unit);
     a.setData(a.data+1);
     return temp;
@@ -306,7 +465,7 @@ ariel::PhysicalNumber &ariel::operator++(ariel::PhysicalNumber &a) {
     return a;
 }
 
-ariel::PhysicalNumber &ariel::operator--(ariel::PhysicalNumber &a, int) {
+ariel::PhysicalNumber ariel::operator--(ariel::PhysicalNumber &a, int) {
     PhysicalNumber temp(a.data, a.unit);
     a.setData(a.data-1);
     return temp;
@@ -315,10 +474,6 @@ ariel::PhysicalNumber &ariel::operator--(ariel::PhysicalNumber &a) {
     a.setData(a.data-1);
     return a;
 }
-
-/*ariel::PhysicalNumber ariel::operator+(ariel::PhysicalNumber &a) {//unary plus
-    return a;
-}*/
 
 istream& ariel::operator>>(istream& in, ariel::PhysicalNumber &a) {
     string s;
@@ -361,6 +516,7 @@ ostream& ariel::operator<<(ostream &out,const ariel::PhysicalNumber &a) {
     return out;
 }
 
+
 ariel::PhysicalNumber ariel::PhysicalNumber::operator-() {//unary -
     PhysicalNumber a(-(this->data),this->unit);
     return a;
@@ -368,4 +524,66 @@ ariel::PhysicalNumber ariel::PhysicalNumber::operator-() {//unary -
 
 ariel::PhysicalNumber ariel::PhysicalNumber::operator+() const{//unary +
     return *this;
+}
+//ariel::PhysicalNumber r =calco(r, r);
+    ariel::PhysicalNumber calco (ariel::PhysicalNumber& a, ariel::PhysicalNumber& b);
+ ariel::PhysicalNumber calco( ariel::PhysicalNumber &a, ariel::PhysicalNumber &b) {
+    ariel::PhysicalNumber temp;
+    temp.SetUnit(a.getUnitNum());
+    if (a.getUnitNum() == 0 && b.getUnitNum() == 0) { //case 1 : unit first is CM
+        temp.setData(b.GetData());//"cm"+"cm"
+    } else if (a.getUnitNum() == 0 && b.getUnitNum() == 1) {
+        temp.setData(b.GetData() * 100);//"cm"+"m"*100
+    } else if (a.getUnitNum() == 0 && b.getUnitNum() == 2) {
+        temp.setData(b.GetData() * 100000);//"cm"+"km"*100,000
+    } else if (a.getUnitNum() == 1 && b.getUnitNum() == 0) {//case 2 : unit first is Meters
+        temp.setData(b.GetData() / 100);//"m"+"cm"/100
+    } else if (a.getUnitNum() == 1 && b.getUnitNum() == 1) {
+        temp.setData(b.GetData());//"m"+"m"
+    } else if (a.getUnitNum() == 1 && b.getUnitNum() == 2) {
+        temp.setData(b.GetData()* 1000);//"m"+"km"*1000
+    } else if (a.getUnitNum() == 2 && b.getUnitNum() == 0) {//case 3: unit first is KM
+        temp.setData(b.GetData()/ 100000);//"km"+"sm"/100,000
+    } else if (a.getUnitNum() == 2 && b.getUnitNum() == 1) {
+        temp.setData(b.GetData() / 1000);//"km"+"m"/1000
+    } else if (a.getUnitNum() == 2 && b.getUnitNum() == 2) {
+        temp.setData(b.GetData());//"km"+"km"
+    } else if (a.getUnitNum() == 3 && b.getUnitNum() == 3) {//case 1 : unit first is sec
+        temp.setData(b.GetData());//"sec"+"sec"
+    } else if (a.getUnitNum() == 3 && b.getUnitNum() == 4) {
+        temp.setData(b.GetData() * 60);//"sec"+"min"*60
+    } else if (a.getUnitNum() == 3 && b.getUnitNum() == 5) {
+        temp.setData(b.GetData() * 3600);//"sec"+"hour"*3600
+    } else if (a.getUnitNum() == 4 && b.getUnitNum() == 3) {//case 2 : unit first is min
+        temp.setData(b.GetData()/ 60);//"min"+"sec"/60
+    } else if (a.getUnitNum()== 4 && b.getUnitNum() == 4) {
+        temp.setData(b.GetData());//"min"+"min"
+    } else if (a.getUnitNum() == 4 && b.getUnitNum() == 5) {
+        temp.setData(b.GetData() * 60);//"min"+"hour"*60
+    } else if (a.getUnitNum() == 5 && b.getUnitNum() == 3) {//case 3: unit first is hour
+        temp.setData(b.GetData() / 3600);//"hour"+"sec"/3600
+    } else if (a.getUnitNum() == 5 && b.getUnitNum() == 4) {
+        temp.setData(b.GetData() / 60);//"hour"+"min"/60
+    } else if (a.getUnitNum() == 5 && b.getUnitNum() == 5) {
+        temp.setData(b.GetData());//"hour"+"hour"
+    } else if (a.getUnitNum() == 6 && b.getUnitNum() == 6) { //case 1 : unit first is gram
+        temp.setData(b.GetData());//"gram"+"gram"
+    } else if (a.getUnitNum() == 6 && b.getUnitNum() == 7) {
+        temp.setData(b.GetData() * 1000);//"gram"+"kg"*1000
+    } else if (a.getUnitNum() == 6 && b.getUnitNum() == 8) {
+        temp.setData(b.GetData() / 1000000);//"gram"+"ton"*1,000,000
+    } else if (a.getUnitNum() == 7 && b.getUnitNum() == 6) {//case 2 : unit first is kg
+        temp.setData(b.GetData() / 1000);//"kg"+"gram"/1000
+    } else if (a.getUnitNum() == 7 && b.getUnitNum() == 7) {
+        temp.setData(b.GetData());//"kg"+"kg"
+    } else if (a.getUnitNum() == 7 && b.getUnitNum() == 8) {
+        temp.setData(b.GetData()* 1000);//"kg"+"ton"*1,000
+    } else if (a.getUnitNum() == 8 && b.getUnitNum() == 6) {//case 3: unit first is ton
+        temp.setData(b.GetData()/ 1000000);//"ton"+"gram"/1,000,000
+    } else if (a.getUnitNum() == 8 && b.getUnitNum() == 7) {
+        temp.setData(b.GetData() / 1000);//"ton"+"kg"/1000
+    } else if (a.getUnitNum() == 8 && b.getUnitNum() == 8) {
+        temp.setData(b.GetData());//"ton"+"ton"
+    }
+    return temp;
 }
