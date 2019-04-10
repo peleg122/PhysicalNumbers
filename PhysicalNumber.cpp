@@ -461,7 +461,15 @@ bool ariel::operator<(const PhysicalNumber &a,const PhysicalNumber &b) {
 
 
 bool ariel::operator!=(const PhysicalNumber &a,const  PhysicalNumber &b){
-    return !(a==b);
+    if(a.unit>=0 || a.unit<=2 && b.unit>=0 || b.unit<=2){
+        return !(a==b);
+    }else if(a.unit>=3 || a.unit<=5 && b.unit>=3 || b.unit<=5){
+        return !(a==b);
+    }else if(a.unit>=6 || a.unit<=8 && b.unit>=6 || b.unit<=8){
+        return !(a==b);
+    }else{
+        throw invalid_argument("No data good");
+    }
 }
 
 ariel::PhysicalNumber ariel::operator++(ariel::PhysicalNumber &a, int) {
