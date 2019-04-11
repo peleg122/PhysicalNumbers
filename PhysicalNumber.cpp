@@ -81,14 +81,14 @@ ariel::PhysicalNumber &ariel::operator+=(ariel::PhysicalNumber &a, const ariel::
 //negative///////////////////////////////////////////////////////////////////////////////
 ariel::PhysicalNumber ariel::operator-(ariel::PhysicalNumber &a,ariel::PhysicalNumber &b) {
     PhysicalNumber h(0, Unit::M);
-      double mult;
+    double mult;
     if(!checkElement(a.unit,b.unit)){
         throw invalid_argument("no");
     }else{
         mult = castData(a,b);
         h.setUnit(a.unit);
         h.setData(a.data - (b.data*mult));
-       return h;
+        return h;
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -119,7 +119,7 @@ bool ariel::operator==(const PhysicalNumber &a, const PhysicalNumber &b) {
         throw invalid_argument("no");
     }else{
         mult = castData(a,b);
-       return (a.data==b.data*mult);
+        return (a.data==b.data*mult);
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////
@@ -134,32 +134,32 @@ bool ariel::operator!=(const PhysicalNumber &a, const PhysicalNumber &b){
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 bool ariel::operator>=(const PhysicalNumber &a, const PhysicalNumber &b) {
-        double mult;
+    double mult;
     if(!checkElement(a.unit,b.unit)){
         throw invalid_argument("no");
     }else{
         mult = castData(a,b);
-       return (a.data>=b.data*mult);
+        return (a.data>=b.data*mult);
     }
 }
 /////////////////////////////////////////////////////////////////////////////////
 bool ariel::operator <= (const PhysicalNumber &a, const PhysicalNumber &b) {
-        double mult;
+    double mult;
     if(!checkElement(a.unit,b.unit)){
         throw invalid_argument("no");
     }else{
         mult = castData(a,b);
-       return (a.data<=b.data*mult);
+        return (a.data<=b.data*mult);
     }
 }
 /////////////////////////////////////////////////////////////////////////////
 bool ariel::operator>(const PhysicalNumber &a, const PhysicalNumber &b) {
-        double mult;
+    double mult;
     if(!checkElement(a.unit,b.unit)){
         throw invalid_argument("no");
     }else{
         mult = castData(a,b);
-       return (a.data>b.data*mult);
+        return (a.data>b.data*mult);
     }
 }
 /////////////////////////////////////////////////////////////////////////////////
@@ -169,7 +169,7 @@ bool ariel::operator<(const PhysicalNumber &a, const PhysicalNumber &b) {
         throw invalid_argument("no");
     }else{
         mult = castData(a,b);
-       return (a.data<b.data*mult);
+        return (a.data<b.data*mult);
     }
 }
 
@@ -212,7 +212,7 @@ istream& ariel::operator>>(istream& in, ariel::PhysicalNumber &a) {
     else if(s2=="ton")a.setUnit(TON);
     else{
         throw invalid_argument("Not a unit in this program");
-    } 
+    }
     return in;
 }
 ////////////////////////////////////////////////////////////////////////////////////
@@ -229,7 +229,7 @@ ostream& ariel::operator<<(ostream &out,const ariel::PhysicalNumber &a) {
         case 6: t= "g";break;
         case 7: t= "kg";break;
         case 8: t= "ton";break;
-        default: throw invalid_argument("noo"); 
+        default: throw invalid_argument("noo");
     }
     out<< a.data << "[" <<t<<"]";
     return out;
@@ -239,6 +239,3 @@ ariel::PhysicalNumber::PhysicalNumber() {
     this->data=0;
     this->unit=BAD;
 }
-
-
-
