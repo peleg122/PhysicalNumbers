@@ -179,10 +179,11 @@ ariel::PhysicalNumber &ariel::operator++(ariel::PhysicalNumber &a) {///++num
     return a;
 }
 /////////////////////////////////////////////////////////////////////////////////////
-ariel::PhysicalNumber &ariel::operator++(ariel::PhysicalNumber &a, int) {//num++
-    PhysicalNumber b = a;
-    ++(a); //using the prefix operator from before
-    return b;
+ariel::PhysicalNumber ariel::PhysicalNumber::operator++(int x) // post
+{
+    PhysicalNumber tmp = *this;
+    ++this->data;
+    return tmp;
 }
 ////////////////////////////////////////////////////////////////////////////////////
 ariel::PhysicalNumber &ariel::operator--(ariel::PhysicalNumber &a) {//--num
@@ -190,10 +191,11 @@ ariel::PhysicalNumber &ariel::operator--(ariel::PhysicalNumber &a) {//--num
     return a;
 }
 ////////////////////////////////////////////////////////////////////////////////////
-ariel::PhysicalNumber &ariel::operator--(ariel::PhysicalNumber &a, int) {//num--
-    PhysicalNumber b = a;
-    --(a); //using the prefix operator from before
-    return b;
+ariel::PhysicalNumber ariel::PhysicalNumber::operator--(int x) // post
+{
+    PhysicalNumber tmp = *this;
+    --this->data;
+    return tmp;
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //input output
@@ -240,6 +242,3 @@ ariel::PhysicalNumber::PhysicalNumber() {
     this->data=0;
     this->unit=BAD;
 }
-
-
-
