@@ -186,7 +186,6 @@ ariel::PhysicalNumber ariel::PhysicalNumber::operator++(int x) // post
 {
     PhysicalNumber tmp = *this;
     ++this->data;
-    x;
     return tmp;
 }
 ////////////////////////////////////////////////////////////////////////////////////
@@ -202,7 +201,7 @@ ariel::PhysicalNumber ariel::PhysicalNumber::operator--(int x) // post
     return tmp;
 }
 ////////////////////////////////////////////////////////////////////////////////////
-//input output
+//input outpu
 istream& ariel::operator>>(istream& in, ariel::PhysicalNumber &a) {
     string s;
     in>>a.data;
