@@ -186,6 +186,7 @@ ariel::PhysicalNumber ariel::PhysicalNumber::operator++(int x) // post
 {
     PhysicalNumber tmp = *this;
     ++this->data;
+    x;
     return tmp;
 }
 ////////////////////////////////////////////////////////////////////////////////////
@@ -201,9 +202,9 @@ ariel::PhysicalNumber ariel::PhysicalNumber::operator--(int x) // post
     return tmp;
 }
 ////////////////////////////////////////////////////////////////////////////////////
-//input outpu
+//input output
 istream& ariel::operator>>(istream& in, ariel::PhysicalNumber &a) {
-    string s;
+    /*string s;
     in>>a.data;
     in>>s;
     string s2=s.substr(1,s.length()-2);
@@ -216,6 +217,24 @@ istream& ariel::operator>>(istream& in, ariel::PhysicalNumber &a) {
     else if(s2=="g")a.setUnit(G);
     else if(s2=="kg")a.setUnit(KG);
     else if(s2=="ton")a.setUnit(TON);
+    else{
+        throw invalid_argument("Not a unit in this program");
+    }
+    return in;*/
+    char tmp;
+
+    string s="";
+    in>>a.data>>tmp>>s;
+    s.resize(s.length()-1);
+    if(s=="cm")a.setUnit(CM);
+    else if(s=="m")a.setUnit(M);
+    else if(s=="km")a.setUnit(KM);
+    else if(s=="sec")a.setUnit(SEC);
+    else if(s=="min")a.setUnit(MIN);
+    else if(s=="hour")a.setUnit(HOUR);
+    else if(s=="g")a.setUnit(G);
+    else if(s=="kg")a.setUnit(KG);
+    else if(s=="ton")a.setUnit(TON);
     else{
         throw invalid_argument("Not a unit in this program");
     }
