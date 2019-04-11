@@ -1,93 +1,74 @@
-//
-// Created by Peleg on 05/04/2019.
-//
+
 #pragma once
 #include "Unit.h"
 #include <iostream>
-
 using namespace std;
 
 namespace ariel {
     class PhysicalNumber{
-    private:
-        double data;
-        Unit unit;
-    public:
+        private:
+            double data;
+            Unit unit;
+        public:
         PhysicalNumber();
-        //constructor with initializing list
-        PhysicalNumber(double num, Unit type):data(num), unit(type){
-            if(type>=0 && type<=2){
-                //should be switch cases better code
-            }else if(type>=3 && type<=5){
-
-            }else if(type>=6 && type<=8){
-
-            }else{
-                throw std::invalid_argument( "received wrong value" );
+            //constructor with initializing list
+            PhysicalNumber(double num, Unit type):data(num), unit(type){
+                if(type>8||type<0)throw std::invalid_argument("recieved wrong value");
             }
-        }
-        Unit getUnitNum(){
-            return this->unit;
-        }
-        double GetData(){
-            return this->data;
-        }
-        std::string GetUnit(){
-            int temp = this->unit;
-            switch (temp){
-                case 0: return "cm";
-                case 1: return "m";
-                case 2: return "km";
-                case 3: return "sec";
-                case 4: return "min";
-                case 5: return "hour";
-                case 6: return "g";
-                case 7: return "kg";
-                case 8: return "ton";
-                case 9: return "bad";
+            
+            double GetData(){
+                return this->data;
             }
-            return "";
-        }
-        void SetUnit(Unit un){
-            this->unit = un;
-        }
-        void setData(double num){
-            this->data=num;
-        }
+            std::string GetUnit(){
+                int temp = this->unit;
+                switch (temp){
+                    case 0: return "CM";
+                    case 1: return "M";
+                    case 2: return "KM";
+                    case 3: return "SEC";
+                    case 4: return "MIN";
+                    case 5: return "HOUR";
+                    case 6: return "G";
+                    case 7: return "KG";
+                    case 8: return "TON";
+                    default: throw invalid_argument("nooo");
+                }
+                return "";
+            }
+            void setUnit(Unit un){
+                this->unit = un;
+            }
+            void setData(double num){
+                this->data=num;
+            }
 
-        //Positive
-        PhysicalNumber operator+(const PhysicalNumber& b);//ze shone !! (binary +)
-        friend ariel::PhysicalNumber& operator+=(PhysicalNumber& b,const ariel::PhysicalNumber& a);//works
-        PhysicalNumber operator+()const;
-        //works
+            //+/-
 
-        //negative
-        PhysicalNumber operator-(const PhysicalNumber& b);//ze shone !! (binary -)
-        friend ariel::PhysicalNumber& operator-=(PhysicalNumber& b,const ariel::PhysicalNumber& a);//works
-        PhysicalNumber operator-();
+            friend ariel::PhysicalNumber operator+( PhysicalNumber & a,  PhysicalNumber& b);
+            friend ariel::PhysicalNumber& operator+=(PhysicalNumber& a,const ariel::PhysicalNumber& b);
+            PhysicalNumber operator+()const;
+            
+            friend PhysicalNumber operator-(PhysicalNumber& a, PhysicalNumber& b);
+            friend ariel::PhysicalNumber& operator-=(PhysicalNumber& a,const ariel::PhysicalNumber& b);
+            PhysicalNumber operator-();
 
-        //comparison
-        friend bool operator== (const PhysicalNumber& a,const PhysicalNumber& b);
-        friend bool operator>= (const PhysicalNumber& a,const PhysicalNumber& b);
-        friend bool operator<= (const PhysicalNumber& a,const PhysicalNumber& b);
-        friend bool operator> (const PhysicalNumber& a,const PhysicalNumber& b);
-        friend bool operator< (const PhysicalNumber& a,const PhysicalNumber& b);
-        friend bool operator!= (const PhysicalNumber& a,const  PhysicalNumber& b);
+            //comparison
+            friend bool operator== (const PhysicalNumber& a,const PhysicalNumber& b);
+            friend bool operator>= (const PhysicalNumber& a,const PhysicalNumber& b);
+            friend bool operator<= (const PhysicalNumber& a,const PhysicalNumber& b);
+            friend bool operator> (const PhysicalNumber& a,const PhysicalNumber& b);
+            friend bool operator< (const PhysicalNumber& a,const PhysicalNumber& b);
+            friend bool operator!= (const PhysicalNumber& a,const PhysicalNumber& b);
 
-        //++,--
-        friend PhysicalNumber operator++(PhysicalNumber& a, int); //num++  -works
-        friend PhysicalNumber& operator++(PhysicalNumber& a);//++num -works
+            //++,--
+            friend PhysicalNumber& operator++(PhysicalNumber& a); //++num
+            friend PhysicalNumber& operator++(PhysicalNumber& a, int); //num++
+            friend PhysicalNumber& operator--(PhysicalNumber& a);//--num
+            friend PhysicalNumber& operator--(PhysicalNumber& a, int); //num--
 
-        friend PhysicalNumber operator--(PhysicalNumber& a, int); //num++ -works
-        friend PhysicalNumber& operator--(PhysicalNumber& a);//++num -works
-        //input output
-
-        friend istream&operator>>(istream& in, ariel::PhysicalNumber& a);
-        friend ostream& operator<<(ostream& out,const ariel::PhysicalNumber& a);// -works
-
-        //helping functions:
-
-
-    };
-    //const PhysicalNumber calc(PhysicalNumber& a, PhysicalNumber& b);
+            //input output
+            friend istream& operator>> (istream& in, ariel::PhysicalNumber& a);
+            friend ostream& operator<<(ostream& out,const ariel::PhysicalNumber& a);
+            
+        };
 }
