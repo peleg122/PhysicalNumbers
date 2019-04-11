@@ -1,6 +1,9 @@
 #include "PhysicalNumber.h"
 #include"Unit.h"
 #include<string>
+#include <iostream>     // std::cout, std::fixed
+#include <iomanip>
+
 using namespace std;
 /////////////////////help1////////////////////////////////////////
 bool checkElement(ariel::Unit a, ariel::Unit b) {
@@ -183,6 +186,7 @@ ariel::PhysicalNumber ariel::PhysicalNumber::operator++(int x) // post
 {
     PhysicalNumber tmp = *this;
     ++this->data;
+    x;
     return tmp;
 }
 ////////////////////////////////////////////////////////////////////////////////////
@@ -234,7 +238,7 @@ ostream& ariel::operator<<(ostream &out,const ariel::PhysicalNumber &a) {
         case 8: t= "ton";break;
         default: throw invalid_argument("noo");
     }
-    out<< a.data << "[" <<t<<"]";
+    out<<setprecision(6)<< a.data << "[" <<t<<"]";
     return out;
 }
 
@@ -242,3 +246,6 @@ ariel::PhysicalNumber::PhysicalNumber() {
     this->data=0;
     this->unit=BAD;
 }
+
+
+
