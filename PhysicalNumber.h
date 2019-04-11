@@ -1,3 +1,4 @@
+
 #pragma once
 #include "Unit.h"
 #include <iostream>
@@ -43,11 +44,11 @@ namespace ariel {
 
         //+/-
 
-        friend ariel::PhysicalNumber operator+( PhysicalNumber & a,  PhysicalNumber& b);
+        ariel::PhysicalNumber operator+(const PhysicalNumber& b);
         friend ariel::PhysicalNumber& operator+=(PhysicalNumber& a,const ariel::PhysicalNumber& b);
         PhysicalNumber operator+()const;
 
-        friend PhysicalNumber operator-(PhysicalNumber& a, PhysicalNumber& b);
+        ariel::PhysicalNumber operator-(const PhysicalNumber& b);
         friend ariel::PhysicalNumber& operator-=(PhysicalNumber& a,const ariel::PhysicalNumber& b);
         PhysicalNumber operator-();
 
