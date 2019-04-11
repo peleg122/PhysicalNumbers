@@ -62,9 +62,9 @@ namespace ariel {
 
         //++,--
         friend PhysicalNumber& operator++(PhysicalNumber& a); //++num
-        friend PhysicalNumber& operator++(PhysicalNumber& a, int); //num++
+        PhysicalNumber operator++(int); //num++
         friend PhysicalNumber& operator--(PhysicalNumber& a);//--num
-        friend PhysicalNumber& operator--(PhysicalNumber& a, int); //num--
+        PhysicalNumber operator--(int);//num--
 
         //input output
         friend istream& operator>> (istream& in, ariel::PhysicalNumber& a);
