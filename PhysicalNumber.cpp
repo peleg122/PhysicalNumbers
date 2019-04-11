@@ -55,14 +55,14 @@ double castData(ariel::PhysicalNumber a, ariel::PhysicalNumber b){
 
 //Positive
 ///////////////////////////////////////////////////////////////////////////////////////
-ariel::PhysicalNumber ariel::operator+(ariel::PhysicalNumber &a,  ariel::PhysicalNumber &b) {
+ariel::PhysicalNumber ariel::PhysicalNumber::operator+(const ariel::PhysicalNumber &b) {
     PhysicalNumber h(0, Unit::M);
     double mult;
-    if(!checkElement(a.unit,b.unit)){
+    if(!checkElement(this->unit,b.unit)){
         throw std::invalid_argument("Cannot use addition on different unit types!");    }else{
-        mult = castData(a,b);
-        h.setUnit(a.unit);
-        h.setData(a.data+(b.data*mult));
+        mult = castData(*this, b);
+        h.setUnit(this->unit);
+        h.setData(this->data+(b.data*mult));
     }
     return h;
 }
@@ -79,17 +79,16 @@ ariel::PhysicalNumber &ariel::operator+=(ariel::PhysicalNumber &a, const ariel::
 }
 
 //negative///////////////////////////////////////////////////////////////////////////////
-ariel::PhysicalNumber ariel::operator-(ariel::PhysicalNumber &a,ariel::PhysicalNumber &b) {
+ariel::PhysicalNumber ariel::PhysicalNumber::operator-(const ariel::PhysicalNumber &b) {
     PhysicalNumber h(0, Unit::M);
     double mult;
-    if(!checkElement(a.unit,b.unit)){
-        throw invalid_argument("no");
-    }else{
-        mult = castData(a,b);
-        h.setUnit(a.unit);
-        h.setData(a.data - (b.data*mult));
-        return h;
+    if(!checkElement(this->unit,b.unit)){
+        throw std::invalid_argument("Cannot use addition on different unit types!");    }else{
+        mult = castData(*this, b);
+        h.setUnit(this->unit);
+        h.setData(this->data-(b.data*mult));
     }
+    return h;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ariel::PhysicalNumber &ariel::operator-=(ariel::PhysicalNumber &a, const ariel::PhysicalNumber &b) {
@@ -239,3 +238,6 @@ ariel::PhysicalNumber::PhysicalNumber() {
     this->data=0;
     this->unit=BAD;
 }
+
+
+
