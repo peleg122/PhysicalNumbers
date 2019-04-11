@@ -23,10 +23,62 @@ int main() {
         PhysicalNumber b(300, Unit::M);
         PhysicalNumber c(2, Unit::HOUR);
         PhysicalNumber d(30, Unit::MIN);
-        PhysicalNumber e(2, Unit::TON);
-        PhysicalNumber f(500, Unit::KG);
-        PhysicalNumber g(3, Unit::KM);
+///////////////////////////////////////////////////////----------------->>>>first test
+        PhysicalNumber e(0.2, Unit::KM);  //200 meter
+        PhysicalNumber f(3000, Unit::M);  //3 km
+        PhysicalNumber g(0.2, Unit::HOUR); //20 min
+        PhysicalNumber h(65, Unit::M);   //1 hour & 5 min-->1.083333333
+        PhysicalNumber i(90, Unit::MIN);   // 1.5 hour
+        PhysicalNumber j(1000, Unit::CM); //10 meter
+        PhysicalNumber k(3600, Unit::SEC); //1 hour
+        PhysicalNumber l(1000000, Unit::G); //0.1 ton
+        PhysicalNumber m(0.6, Unit::KG);  // 600 gram
+        PhysicalNumber n(0.02, Unit::TON); // 20 kg
+//////////////////////////////////////////////////////////////////////////--->>end of 1st test
+        PhysicalNumber a2(2, Unit::KM);
+        PhysicalNumber b2(300, Unit::M);
+        PhysicalNumber c2(2, Unit::HOUR);
+        PhysicalNumber d2(30, Unit::MIN);
 
+        PhysicalNumber a3(2, Unit::KM);
+        PhysicalNumber b3(300, Unit::M);
+        PhysicalNumber c3(2, Unit::HOUR);
+        PhysicalNumber d3(30, Unit::MIN);
+
+        PhysicalNumber a4(2, Unit::KM);
+        PhysicalNumber b4(300, Unit::M);
+        PhysicalNumber c4(2, Unit::HOUR);
+        PhysicalNumber d4(30, Unit::MIN);
+
+        PhysicalNumber a5(2, Unit::KM);
+        PhysicalNumber b5(300, Unit::M);
+        PhysicalNumber c5(2, Unit::HOUR);
+        PhysicalNumber d5(30, Unit::MIN);
+
+        PhysicalNumber a6(2, Unit::KM);
+        PhysicalNumber b6(300, Unit::M);
+        PhysicalNumber c6(2, Unit::HOUR);
+        PhysicalNumber d6(30, Unit::MIN);
+
+        PhysicalNumber a7(2, Unit::KM);
+        PhysicalNumber b7(300, Unit::M);
+        PhysicalNumber c7(2, Unit::HOUR);
+        PhysicalNumber d7(30, Unit::MIN);
+
+        PhysicalNumber a8(2, Unit::KM);
+        PhysicalNumber b8(300, Unit::M);
+        PhysicalNumber c8(2, Unit::HOUR);
+        PhysicalNumber d8(30, Unit::MIN);
+
+        PhysicalNumber a9(2, Unit::KM);
+        PhysicalNumber b9(300, Unit::M);
+        PhysicalNumber c9(2, Unit::HOUR);
+        PhysicalNumber d9(30, Unit::MIN);
+
+        PhysicalNumber a10(2, Unit::KM);
+        PhysicalNumber b10(300, Unit::M);
+        PhysicalNumber c10(2, Unit::HOUR);
+        PhysicalNumber d10(30, Unit::MIN);
         testcase
                 .setname("Basic output")
                 .CHECK_OUTPUT(a, "2[km]")
@@ -52,54 +104,21 @@ int main() {
                 .CHECK_OK(istringstream("700[kg]") >> a)
                 .CHECK_OUTPUT((a += PhysicalNumber(1, Unit::TON)), "1700[kg]")
 
-                .setname("Pelegs Chekings")
-                .CHECK_OUTPUT(e, "2[ton]")
-                .CHECK_OUTPUT(f, "500[kg]")
-                .CHECK_OUTPUT((e+f), "2.5[ton]")
-                .CHECK_OUTPUT((f+e), "2500[kg]")
-                .CHECK_OUTPUT(e-e, "0[ton]")
-                .CHECK_OUTPUT(f-e, "-1500[kg]")
-                .CHECK_OUTPUT(e-e-f, "-0.5[ton]")
-                .CHECK_OUTPUT(e, "2[ton]")
-                .CHECK_OUTPUT(e+e+e+e+e+e+e, "14[ton]")
-                .CHECK_EQUAL(+PhysicalNumber(0,Unit::MIN),PhysicalNumber(0,Unit::MIN)) //+0[cm] = 0[cm]
-                .CHECK_EQUAL(e > f , true)
-                .CHECK_EQUAL(e==e, true)
-                .CHECK_EQUAL(f<e , true)
-                .CHECK_EQUAL(e==f, false)
-                .CHECK_OUTPUT(e+f+e+f+e+f+e+f, "10[ton]")
-                .CHECK_EQUAL(e>=f, true)
-                .CHECK_EQUAL(e<=f, false)
-                .CHECK_THROWS(e>c)
-                .CHECK_THROWS(e+=d)
-                .CHECK_THROWS(f<d)
-                .CHECK_THROWS(f+b)
-                .CHECK_THROWS(e-=d)
-                .CHECK_THROWS(f<=d)
-                .CHECK_THROWS(f>=a)
-                .CHECK_THROWS(a-c)
-                .CHECK_THROWS(f-=d)
-                .CHECK_THROWS(e==d)
-                .CHECK_OK(c.setData(0))
-                .CHECK_THROWS(--c)
-                .CHECK_THROWS(c-d)
-                .CHECK_OK(c.setData(2))
-                .CHECK_OUTPUT(c,"2[hour]")
-                .CHECK_OUTPUT(c--,"2[hour]")
-                .CHECK_OUTPUT(--c,"0[hour]")
-                .CHECK_OUTPUT(c++,"0[hour]")
-                .CHECK_OUTPUT(++c,"2[hour]")
-                .CHECK_THROWS(f==a)
-                .CHECK_EQUAL(a==a, true)
-                .CHECK_EQUAL(a!=a ,false)
-                .CHECK_EQUAL(c>=d, true)
-                .CHECK_EQUAL(d>=c , false)
-                .CHECK_EQUAL(c==d, false)
-                .CHECK_EQUAL(c!=d, true)
-                .CHECK_EQUAL(g<b, true)
-                .CHECK_EQUAL(b<g, false)
-
                         // YOUR TESTS - INSERT AS MANY AS YOU WANT
+                        //basic output check
+                .setname("testing our own")
+                .CHECK_OUTPUT(e , "0.2[km]")
+                .CHECK_OUTPUT(f, "3000[m]")
+                .CHECK_OUTPUT(g, "0.2[hour]")
+                .CHECK_OUTPUT(h, "65[m]")
+                .CHECK_OUTPUT(i, "90[min]")
+                .CHECK_OUTPUT(j, "1000[cm]")
+                .CHECK_OUTPUT(k, "3600[sec]")
+                .CHECK_OUTPUT(l, "1000000[g]")
+                .CHECK_OUTPUT(m, "0.6[kg]")
+                .CHECK_OUTPUT(n, "0.02[ton]")
+                        //check operators
+
 
                 .setname("...")
 
