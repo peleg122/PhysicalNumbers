@@ -225,7 +225,7 @@ istream& ariel::operator>> (istream& input, ariel::PhysicalNumber& c) {
          (!getAndCheckNextCharIs(input,'[')) ||
          (!(input >> s))                 ||
          (!(getAndCheckNextCharIs(input,']'))) ) {
-
+        cout<<s<<endl;
         // rewind on error
         auto errorState = input.rdstate(); // remember error state
         input.clear(); // clear error so seekg will work
@@ -233,7 +233,8 @@ istream& ariel::operator>> (istream& input, ariel::PhysicalNumber& c) {
         input.clear(errorState); // set back the error flag
     } else {
         c.setData(new_re);
-        s2=s.substr(1,s.length()-2);
+        cout<<s<<endl;
+        s2=s.substr(0,s.length()-2);
         if(s2=="cm")c.setUnit(ariel::CM);
         else if(s2=="m")c.setUnit(ariel::M);
         else if(s2=="km")c.setUnit(ariel::KM);
@@ -288,8 +289,7 @@ ostream& ariel::operator<<(ostream &out,const ariel::PhysicalNumber &a) {
         case 8: t= "ton";break;
         default: throw invalid_argument("output wrong");
     }
-    out<<setprecision(6)<< a.data << "[" <<t<<"]";
-    return out;
+    return (out<<setprecision(6)<< a.data << "[" <<t<<"]");
 }
 
 ariel::PhysicalNumber::PhysicalNumber() {
