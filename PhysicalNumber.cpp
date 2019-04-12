@@ -220,7 +220,7 @@ istream& ariel::operator>>(istream& input, ariel::PhysicalNumber &a) {
     else if(s2=="ton")a.setUnit(TON);
     else {
         throw invalid_argument("Not a unit in this program");
-    }cout<<s2<<endl;
+    }
     return input;
 }
 ////////////////////////////////////////////////////////////////////////////////////
@@ -247,6 +247,3 @@ ariel::PhysicalNumber::PhysicalNumber() {
     this->data=0;
     this->unit=BAD;
 }
-
-
-
