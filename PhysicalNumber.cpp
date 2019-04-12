@@ -203,57 +203,7 @@ ariel::PhysicalNumber ariel::PhysicalNumber::operator--(int x) // post
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //input output
-static istream& getAndCheckNextCharIs(istream& input, char expectedChar) {
-    char actualChar;
-    input >> actualChar;
-    if (!input) return input;
-
-    if (actualChar!=expectedChar)
-        // failbit is for format error
-        input.setstate(ios::failbit);
-    return input;
-}
-
-istream& ariel::operator>> (istream& input, ariel::PhysicalNumber& c) {
-    double new_re;
-    string s,s2;
-
-    // remember place for rewinding
-    ios::pos_type startPosition = input.tellg();
-
-    if ( (!(input >> new_re))                 ||
-         (!getAndCheckNextCharIs(input,'[')) ||
-         (!(input >> s))                 ||
-         (!(getAndCheckNextCharIs(input,']'))) ) {
-        cout<<s<<endl;
-        // rewind on error
-        auto errorState = input.rdstate(); // remember error state
-        input.clear(); // clear error so seekg will work
-        input.seekg(startPosition); // rewind
-        input.clear(errorState); // set back the error flag
-    } else {
-        c.setData(new_re);
-        cout<<s<<endl;
-        s2=s.substr(0,s.length()-2);
-        if(s2=="cm")c.setUnit(ariel::CM);
-        else if(s2=="m")c.setUnit(ariel::M);
-        else if(s2=="km")c.setUnit(ariel::KM);
-        else if(s2=="sec")c.setUnit(ariel::SEC);
-        else if(s2=="min")c.setUnit(ariel::MIN);
-        else if(s2=="hour")c.setUnit(ariel::HOUR);
-        else if(s2=="g")c.setUnit(ariel::G);
-        else if(s2=="kg")c.setUnit(ariel::KG);
-        else if(s2=="ton")c.setUnit(ariel::TON);
-        else {
-            cout<<"sorry";
-        }
-    }
-
-    return input;
-    //---------------------------------------------
-}
-
-/*istream& ariel::operator>>(istream& input, ariel::PhysicalNumber &a) {
+istream& ariel::operator>>(istream& input, ariel::PhysicalNumber &a) {
     string s,s2;
 
     input>>a.data;
@@ -272,7 +222,7 @@ istream& ariel::operator>> (istream& input, ariel::PhysicalNumber& c) {
         throw invalid_argument("Not a unit in this program");
     }cout<<s2<<endl;
     return input;
-}*/
+}
 ////////////////////////////////////////////////////////////////////////////////////
 ostream& ariel::operator<<(ostream &out,const ariel::PhysicalNumber &a) {
     int temp = a.unit;
@@ -289,7 +239,8 @@ ostream& ariel::operator<<(ostream &out,const ariel::PhysicalNumber &a) {
         case 8: t= "ton";break;
         default: throw invalid_argument("output wrong");
     }
-    return (out<<setprecision(6)<< a.data << "[" <<t<<"]");
+    out<<setprecision(6)<< a.data << "[" <<t<<"]";
+    return out;
 }
 
 ariel::PhysicalNumber::PhysicalNumber() {
