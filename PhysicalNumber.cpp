@@ -73,7 +73,7 @@ ariel::PhysicalNumber ariel::PhysicalNumber::operator+(const ariel::PhysicalNumb
 ariel::PhysicalNumber &ariel::operator+=(ariel::PhysicalNumber &a, const ariel::PhysicalNumber &b) {
     double mult;
     if(!checkElement(a.unit,b.unit)){
-        throw invalid_argument("no");
+        throw invalid_argument("po");
     }else{
         mult = castData(a,b);
         a.setData(a.data+(b.data*mult));
@@ -214,11 +214,14 @@ static istream& getAndCheckNextCharIs(istream& input, char expectedChar) {
     return input;
 }
 
-istream& ariel::operator>>(istream& input, ariel::PhysicalNumber &a) {
-    double f;string s;
+istream& ariel::operator>> (istream& input, ariel::PhysicalNumber& c) {
+    double new_re;
+    string s,s2;
+
     // remember place for rewinding
     ios::pos_type startPosition = input.tellg();
-    if ( (!(input >> a.data))                 ||
+
+    if ( (!(input >> new_re))                 ||
          (!getAndCheckNextCharIs(input,'[')) ||
          (!(input >> s))                 ||
          (!(getAndCheckNextCharIs(input,']'))) ) {
@@ -229,21 +232,32 @@ istream& ariel::operator>>(istream& input, ariel::PhysicalNumber &a) {
         input.seekg(startPosition); // rewind
         input.clear(errorState); // set back the error flag
     } else {
-        a.data = f;
-        string s2=s.substr(1,s.length()-2);
-        if(s2=="cm")a.setUnit(CM);
-        else if(s2=="m")a.setUnit(M);
-        else if(s2=="km")a.setUnit(KM);
-        else if(s2=="sec")a.setUnit(SEC);
-        else if(s2=="min")a.setUnit(MIN);
-        else if(s2=="hour")a.setUnit(HOUR);
-        else if(s2=="g")a.setUnit(G);
-        else if(s2=="kg")a.setUnit(KG);
-        else if(s2=="ton")a.setUnit(TON);
+        c.setData(new_re);
+        s2=s.substr(1,s.length()-2);
+        if(s2=="cm")c.setUnit(ariel::CM);
+        else if(s2=="m")c.setUnit(ariel::M);
+        else if(s2=="km")c.setUnit(ariel::KM);
+        else if(s2=="sec")c.setUnit(ariel::SEC);
+        else if(s2=="min")c.setUnit(ariel::MIN);
+        else if(s2=="hour")c.setUnit(ariel::HOUR);
+        else if(s2=="g")c.setUnit(ariel::G);
+        else if(s2=="kg")c.setUnit(ariel::KG);
+        else if(s2=="ton")c.setUnit(ariel::TON);
+        else {
+            cout<<"sorry";
+        }
     }
-    /*input>>a.data;
+
+    return input;
+    //---------------------------------------------
+}
+
+/*istream& ariel::operator>>(istream& input, ariel::PhysicalNumber &a) {
+    string s,s2;
+
+    input>>a.data;
     input>>s;
-    string s2=s.substr(1,s.length()-2);
+    s2=s.substr(1,s.length()-2);
     if(s2=="cm")a.setUnit(CM);
     else if(s2=="m")a.setUnit(M);
     else if(s2=="km")a.setUnit(KM);
@@ -253,11 +267,11 @@ istream& ariel::operator>>(istream& input, ariel::PhysicalNumber &a) {
     else if(s2=="g")a.setUnit(G);
     else if(s2=="kg")a.setUnit(KG);
     else if(s2=="ton")a.setUnit(TON);
-    else{
+    else {
         throw invalid_argument("Not a unit in this program");
-    }*/
+    }cout<<s2<<endl;
     return input;
-}
+}*/
 ////////////////////////////////////////////////////////////////////////////////////
 ostream& ariel::operator<<(ostream &out,const ariel::PhysicalNumber &a) {
     int temp = a.unit;
@@ -272,7 +286,7 @@ ostream& ariel::operator<<(ostream &out,const ariel::PhysicalNumber &a) {
         case 6: t= "g";break;
         case 7: t= "kg";break;
         case 8: t= "ton";break;
-        default: throw invalid_argument("noo");
+        default: throw invalid_argument("output wrong");
     }
     out<<setprecision(6)<< a.data << "[" <<t<<"]";
     return out;
