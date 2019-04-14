@@ -210,21 +210,20 @@ istream& ariel::operator>>(istream& input, ariel::PhysicalNumber &a) {
     input>>s;
     if(temp<0 ){
         cout<<temp<<endl;
-    }else if(s[0]!='['|| s[s.length()]!=']'){
 
-    }
-    else{
-        a.setData(temp);
+    }else if(s.front()!='[' || s.back()!=']'){
+            cout<<s;
+    }else{
         s2=s.substr(1,s.length()-2);
-        if(s2=="cm")a.setUnit(CM);
-        else if(s2=="m")a.setUnit(M);
-        else if(s2=="km")a.setUnit(KM);
-        else if(s2=="sec")a.setUnit(SEC);
-        else if(s2=="min")a.setUnit(MIN);
-        else if(s2=="hour")a.setUnit(HOUR);
-        else if(s2=="g")a.setUnit(G);
-        else if(s2=="kg")a.setUnit(KG);
-        else if(s2=="ton")a.setUnit(TON);
+        if(s2=="cm"){a.setUnit(CM);a.setData(temp);}
+        else if(s2=="m"){a.setUnit(M);a.setData(temp);}
+        else if(s2=="km"){a.setUnit(KM);a.setData(temp);}
+        else if(s2=="sec"){a.setUnit(SEC);a.setData(temp);}
+        else if(s2=="min"){a.setUnit(MIN);a.setData(temp);}
+        else if(s2=="hour"){a.setUnit(HOUR);a.setData(temp);}
+        else if(s2=="g"){a.setUnit(G);a.setData(temp);}
+        else if(s2=="kg"){a.setUnit(KG);a.setData(temp);}
+        else if(s2=="ton"){a.setUnit(TON);a.setData(temp);}
         else {
 
         }
