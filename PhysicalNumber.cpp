@@ -205,21 +205,26 @@ ariel::PhysicalNumber ariel::PhysicalNumber::operator--(int x) // post
 //input output
 istream& ariel::operator>>(istream& input, ariel::PhysicalNumber &a) {
     string s,s2;
-
-    input>>a.data;
+    double temp;
+    input>>temp;
     input>>s;
-    s2=s.substr(1,s.length()-2);
-    if(s2=="cm")a.setUnit(CM);
-    else if(s2=="m")a.setUnit(M);
-    else if(s2=="km")a.setUnit(KM);
-    else if(s2=="sec")a.setUnit(SEC);
-    else if(s2=="min")a.setUnit(MIN);
-    else if(s2=="hour")a.setUnit(HOUR);
-    else if(s2=="g")a.setUnit(G);
-    else if(s2=="kg")a.setUnit(KG);
-    else if(s2=="ton")a.setUnit(TON);
-    else {
-        throw invalid_argument("Not a unit in this program");
+    if(temp<0 ){
+
+    }else{
+        a.setData(temp);
+        s2=s.substr(1,s.length()-2);
+        if(s2=="cm")a.setUnit(CM);
+        else if(s2=="m")a.setUnit(M);
+        else if(s2=="km")a.setUnit(KM);
+        else if(s2=="sec")a.setUnit(SEC);
+        else if(s2=="min")a.setUnit(MIN);
+        else if(s2=="hour")a.setUnit(HOUR);
+        else if(s2=="g")a.setUnit(G);
+        else if(s2=="kg")a.setUnit(KG);
+        else if(s2=="ton")a.setUnit(TON);
+        else {
+            
+        }
     }
     return input;
 }
