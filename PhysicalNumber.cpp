@@ -186,7 +186,6 @@ ariel::PhysicalNumber ariel::PhysicalNumber::operator++(int x) // post
 {
     PhysicalNumber tmp = *this;
     ++this->data;
-    x;
     return tmp;
 }
 ////////////////////////////////////////////////////////////////////////////////////
@@ -225,7 +224,7 @@ istream& ariel::operator>>(istream& input, ariel::PhysicalNumber &a) {
         else if(s2=="kg"){a.setUnit(KG);a.setData(temp);}
         else if(s2=="ton"){a.setUnit(TON);a.setData(temp);}
         else {
-            //nothing to return 
+            //nothing to return
         }
     }
     return input;
