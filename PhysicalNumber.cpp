@@ -209,7 +209,7 @@ istream& ariel::operator>>(istream& input, ariel::PhysicalNumber &a) {
     input>>temp;
     input>>s;
     if(temp<0 ){
-
+        cout<<temp<<endl;
     }else{
         a.setData(temp);
         s2=s.substr(1,s.length()-2);
@@ -223,7 +223,7 @@ istream& ariel::operator>>(istream& input, ariel::PhysicalNumber &a) {
         else if(s2=="kg")a.setUnit(KG);
         else if(s2=="ton")a.setUnit(TON);
         else {
-            
+
         }
     }
     return input;
@@ -252,3 +252,6 @@ ariel::PhysicalNumber::PhysicalNumber() {
     this->data=0;
     this->unit=BAD;
 }
+
+
+
