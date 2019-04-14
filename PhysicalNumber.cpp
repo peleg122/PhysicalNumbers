@@ -210,7 +210,10 @@ istream& ariel::operator>>(istream& input, ariel::PhysicalNumber &a) {
     input>>s;
     if(temp<0 ){
         cout<<temp<<endl;
-    }else{
+    }else if(s[0]!='['|| s[s.length()]!=']'){
+
+    }
+    else{
         a.setData(temp);
         s2=s.substr(1,s.length()-2);
         if(s2=="cm")a.setUnit(CM);
