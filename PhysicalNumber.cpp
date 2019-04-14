@@ -209,10 +209,10 @@ istream& ariel::operator>>(istream& input, ariel::PhysicalNumber &a) {
     input>>temp;
     input>>s;
     if(temp<0 ){
-        cout<<temp<<endl;
+        //nothing to return
 
     }else if(s.front()!='[' || s.back()!=']'){
-            cout<<s;
+            //nothing to return
     }else{
         s2=s.substr(1,s.length()-2);
         if(s2=="cm"){a.setUnit(CM);a.setData(temp);}
@@ -225,7 +225,7 @@ istream& ariel::operator>>(istream& input, ariel::PhysicalNumber &a) {
         else if(s2=="kg"){a.setUnit(KG);a.setData(temp);}
         else if(s2=="ton"){a.setUnit(TON);a.setData(temp);}
         else {
-
+            //nothing to return 
         }
     }
     return input;
@@ -254,6 +254,3 @@ ariel::PhysicalNumber::PhysicalNumber() {
     this->data=0;
     this->unit=BAD;
 }
-
-
-
